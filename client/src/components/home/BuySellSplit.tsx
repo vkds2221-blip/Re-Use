@@ -1,46 +1,44 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShoppingBag, Banknote } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function BuySellSplit() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6">
           
           {/* Buy Card */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 p-8 md:p-12 hover:shadow-xl transition-shadow">
-             <div className="relative z-10">
-               <div className="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-emerald-green">
-                 <ShoppingBag className="w-7 h-7" />
-               </div>
-               <h3 className="text-3xl font-display font-bold text-dark-gray mb-4">Want to Buy?</h3>
-               <p className="text-gray-500 mb-8 max-w-sm">
-                 Find great deals on verified pre-owned electronics. Save up to 50% vs new prices.
+          <div className="relative overflow-hidden rounded-[2rem] bg-dark-gray p-10 md:p-14 text-white group">
+             <div className="relative z-10 max-w-md">
+               <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 text-xs font-medium mb-6 backdrop-blur-md">For Buyers</span>
+               <h3 className="text-4xl font-display font-bold mb-4">Upgrade your setup for less.</h3>
+               <p className="text-gray-400 mb-8 text-lg">
+                 Get verified tech up to 70% off retail price. 1-year warranty included.
                </p>
-               <Button className="bg-emerald-green hover:bg-emerald-600 text-white px-8 h-12 rounded-lg text-base">
-                 Start Shopping <ArrowRight className="ml-2 w-4 h-4" />
+               <Button className="h-12 px-8 rounded-full bg-white text-dark-gray hover:bg-gray-100 font-bold">
+                 Shop Now
                </Button>
              </div>
-             {/* Decor */}
-             <div className="absolute right-0 bottom-0 w-64 h-64 bg-emerald-green/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 group-hover:bg-emerald-green/10 transition-colors"></div>
+             
+             {/* Abstract Gradient Blob */}
+             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-royal-blue to-purple-600 rounded-full blur-[80px] opacity-40 translate-x-1/3 -translate-y-1/3 group-hover:opacity-60 transition-opacity duration-700"></div>
           </div>
 
           {/* Sell Card */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 p-8 md:p-12 hover:shadow-xl transition-shadow">
-             <div className="relative z-10">
-               <div className="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-vibrant-orange">
-                 <Banknote className="w-7 h-7" />
-               </div>
-               <h3 className="text-3xl font-display font-bold text-dark-gray mb-4">Want to Sell?</h3>
-               <p className="text-gray-500 mb-8 max-w-sm">
-                 Turn your old tech into cash. Instant quotes, free shipping, and fast payment.
+          <div className="relative overflow-hidden rounded-[2rem] bg-gray-100 p-10 md:p-14 text-dark-gray group border border-gray-200">
+             <div className="relative z-10 max-w-md">
+               <span className="inline-block px-3 py-1 rounded-full border border-gray-200 bg-white text-xs font-medium mb-6">For Sellers</span>
+               <h3 className="text-4xl font-display font-bold mb-4">Turn old devices into cash.</h3>
+               <p className="text-gray-500 mb-8 text-lg">
+                 Get an instant AI quote. Free shipping. Fast payment.
                </p>
-               <Button className="bg-vibrant-orange hover:bg-orange-600 text-white px-8 h-12 rounded-lg text-base">
-                 Sell Now <ArrowRight className="ml-2 w-4 h-4" />
+               <Button className="h-12 px-8 rounded-full bg-royal-blue text-white hover:bg-blue-700 font-bold shadow-lg shadow-blue-500/20">
+                 Get Offer
                </Button>
              </div>
-             {/* Decor */}
-             <div className="absolute right-0 bottom-0 w-64 h-64 bg-vibrant-orange/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 group-hover:bg-vibrant-orange/10 transition-colors"></div>
+             
+             {/* Abstract Gradient Blob */}
+             <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-emerald-green to-teal-400 rounded-full blur-[80px] opacity-20 translate-x-1/3 translate-y-1/3 group-hover:opacity-30 transition-opacity duration-700"></div>
           </div>
 
         </div>
