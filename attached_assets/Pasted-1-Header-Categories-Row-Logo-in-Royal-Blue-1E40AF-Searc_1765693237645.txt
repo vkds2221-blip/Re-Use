@@ -1,0 +1,125 @@
+1. Header + Categories Row
+
+Logo → in Royal Blue (#1E40AF)
+
+Search bar → white background, soft shadow, placeholder in medium gray, active border in Emerald Green (#10B981)
+
+Categories row → each category in 16px, Medium (500) font. Hover state underline + text color change to Emerald Green.
+
+Quick filters → pill buttons, 14px text, background in light gray (#F3F4F6), active state in Emerald Green with white text.
+
+2. Hero Banner (Trust + CTA)
+
+H1: “Buy & Sell Electronics You Can Trust” → 48px, Bold, Royal Blue
+
+Subheading: ~20px, Regular, dark gray (#1E293B)
+
+CTA Buttons:
+
+Primary: Vibrant Orange (#F97316), white text, 16px–18px, padding 14px 28px, radius 8px
+
+Secondary: Emerald Green (#10B981) outline, hover → filled green
+
+Trust badges: icon + label, 14px, dark gray text
+
+3. AI-Pricing & Easy Listing Strip (NEW)
+
+Background: light blue-tint (#EEF4FF) (subtle highlight)
+
+Headline: 28px Bold, Royal Blue
+
+Supporting text: 16px, dark gray
+
+Icons/animation: Emerald Green accents
+
+4. Featured Categories (Grid)
+
+4–6 cards with subtle shadows
+
+Icon in Royal Blue
+
+Labels (14px, Medium) with small tags like “Verified Quality” in Emerald Green badges
+
+5. How It Works (Simplified Workflow)
+
+4-step horizontal timeline with numbered circles in Vibrant Orange (#F97316)
+
+Headings: 20px Semi-bold
+
+Supporting text: 14px Regular, gray (#475569)
+
+6. Trust & Safety Strip
+
+Full-width background in Royal Blue (#1E40AF)
+
+Icons in white, text in white, microcopy 14px
+
+Headline: 24px Bold, white
+
+Keeps credibility strong mid-scroll
+
+7. Your Need (Buy / Sell CTA)
+
+Split card layout
+
+Left card: “Want to Buy?” → background light gray, CTA button Emerald Green
+
+Right card: “Want to Sell?” → background light gray, CTA button Vibrant Orange
+
+Balanced contrast → draws both user types equally
+
+8. Products Grid (Latest/Trending)
+
+Card design: white background, 16px product name, 14px details, price in Royal Blue bold
+
+Filters → pill buttons in Emerald Green (active)
+
+Sort dropdown → minimal, blue border highlight
+
+9. Why Choose Us / Value Proposition
+
+Background: light gray (#F9FAFB)
+
+Headline: 28px Bold, Royal Blue
+
+4 columns with icon + short copy
+
+Icons → Emerald Green
+
+10. Testimonials
+
+Carousel design with profile pics
+
+Quotes in 18px italic dark gray
+
+Highlight keywords (e.g., “safe,” “easy”) in Emerald Green
+
+11. Newsletter CTA (Optional)
+
+Full-width strip in Emerald Green (#10B981)
+
+White text: “Stay updated with the latest deals & electronics tips”
+
+Input field white, CTA button Vibrant Orange (#F97316)
+
+12. Footer
+
+Background: Royal Blue (#1E40AF)
+
+Text links white, hover → Emerald Green
+
+Headings 16px Bold white
+
+📏 Typography Scale (applied here)
+
+H1: 48px / Bold
+
+H2: 36px / Semi-bold
+
+H3: 28px / Semi-bold
+
+H4: 24px / Medium
+
+Body (P): 16px Regular
+
+Small text / labels: 14px
