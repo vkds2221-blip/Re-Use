@@ -1,30 +1,46 @@
-import { Star } from "lucide-react";
+import { Star, CheckCircle2 } from "lucide-react";
+import userImg from "@assets/stock_images/happy_young_person_p_636ae91a.jpg";
 
 export function Testimonials() {
   return (
-    <section className="py-24 bg-white border-t border-gray-100">
+    <section className="py-32 bg-white relative">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-           <h2 className="text-3xl font-display font-bold text-dark-gray mb-4">Trusted by 50,000+ Users</h2>
-           <p className="text-gray-500">Don't just take our word for it.</p>
+        <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+           <div>
+              <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-black leading-none">
+                 Trusted by <br/> 50,000+ Users.
+              </h2>
+           </div>
+           <div className="flex items-center gap-2">
+              <div className="flex">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-black text-black" />)}
+              </div>
+              <span className="font-bold text-lg">4.9/5 Average Rating</span>
+           </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
            {[1, 2, 3].map((i) => (
-             <div key={i} className="bg-gray-50 rounded-2xl p-8 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-gray-100">
-                <div className="flex gap-1 mb-6">
-                  {[1,2,3,4,5].map(s => <Star key={s} className="w-4 h-4 fill-vibrant-orange text-vibrant-orange" />)}
-                </div>
-                <p className="text-lg text-dark-gray font-medium mb-6 leading-relaxed">
-                  "Honestly the best experience I've had buying used tech. The laptop looked brand new and the packaging was premium."
-                </p>
-                <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+             <div key={i} className="bg-gray-50 rounded-[2rem] p-10 hover:bg-white hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-transparent hover:border-gray-100 group">
+                <div className="flex items-center gap-4 mb-8">
+                   <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
+                     <img src={userImg} alt="User" className="w-full h-full object-cover" />
+                   </div>
                    <div>
-                      <div className="font-bold text-sm">Alex Johnson</div>
-                      <div className="text-xs text-gray-500">Verified Buyer</div>
+                      <div className="font-bold text-lg">Alex Johnson</div>
+                      <div className="text-sm text-gray-500 flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3 text-blue-500" /> Verified Buyer
+                      </div>
                    </div>
                 </div>
+                
+                <div className="mb-6">
+                  {[1,2,3,4,5].map(s => <Star key={s} className="w-4 h-4 fill-orange-500 text-orange-500 inline-block mr-1" />)}
+                </div>
+
+                <p className="text-xl text-gray-800 font-medium leading-relaxed">
+                  "Honestly the best experience I've had buying used tech. The laptop looked brand new and the packaging was premium."
+                </p>
              </div>
            ))}
         </div>
