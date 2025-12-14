@@ -1,36 +1,34 @@
 export function HowItWorks() {
   const steps = [
-    { number: "01", title: "List Your Device", desc: "Snap a few photos and get an instant AI price valuation." },
-    { number: "02", title: "Get Verified", desc: "Our team checks the quality and specs of your item." },
-    { number: "03", title: "Ship It Free", desc: "Use our prepaid shipping label to send your device." },
-    { number: "04", title: "Get Paid Fast", desc: "Receive payment directly to your bank within 24 hours." },
+    { number: "01", title: "List", desc: "Snap a photo. AI fills the details." },
+    { number: "02", title: "Ship", desc: "We send a prepaid box to your door." },
+    { number: "03", title: "Paid", desc: "Money in your account within 24h." },
   ];
 
   return (
-    <section className="py-20 bg-gray-50 border-t border-gray-100">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-display font-bold text-royal-blue mb-4">How It Works</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto">Selling your old tech has never been easier. We handle the hard parts so you can get paid quickly and securely.</p>
+        <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+           <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-black leading-none">
+              Sell in <br/> Three Steps.
+           </h2>
+           <p className="text-gray-500 max-w-xs text-lg pb-2">
+              We removed the friction. No meetups, no haggling, no scams.
+           </p>
         </div>
 
-        <div className="relative">
-          {/* Connecting Line (Desktop) */}
-          <div className="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-gray-200 -z-10"></div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {steps.map((step, idx) => (
-              <div key={idx} className="relative bg-gray-50 md:bg-transparent pt-4 md:pt-0">
-                <div className="w-16 h-16 rounded-full bg-vibrant-orange text-white text-xl font-bold flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/20 border-4 border-white">
-                  {step.number}
-                </div>
-                <div className="text-center px-4">
-                  <h3 className="text-xl font-semibold text-dark-gray mb-3">{step.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-gray-100 pt-16">
+          {steps.map((step, idx) => (
+            <div key={idx} className="group relative">
+               <div className="text-[8rem] font-display font-bold text-gray-50 absolute -top-24 -left-4 -z-10 group-hover:text-gray-100 transition-colors duration-500 select-none">
+                 {step.number}
+               </div>
+               <div className="pt-8 pl-4">
+                 <h3 className="text-3xl font-bold text-black mb-4 group-hover:translate-x-2 transition-transform duration-300">{step.title}</h3>
+                 <p className="text-gray-500 text-lg leading-relaxed max-w-[200px]">{step.desc}</p>
+               </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -3,26 +3,25 @@ import { Input } from "@/components/ui/input";
 
 export function Newsletter() {
   return (
-    <section className="bg-emerald-green py-16">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl font-display font-bold text-white mb-4">
-          Stay Updated
+    <section className="py-24 bg-white border-t border-gray-100">
+      <div className="container mx-auto px-4 text-center max-w-2xl">
+        <h2 className="text-3xl md:text-4xl font-display font-bold text-black mb-6 tracking-tight">
+          Join the Circular Movement.
         </h2>
-        <p className="text-emerald-50 mb-8 max-w-xl mx-auto text-lg">
-          Get the latest deals, tech tips, and exclusive offers delivered straight to your inbox.
+        <p className="text-gray-500 text-lg mb-10">
+          Get weekly drops of rare tech and selling tips. Zero spam.
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Input 
             type="email" 
-            placeholder="Enter your email address" 
-            className="bg-white border-none h-12 text-gray-800 placeholder:text-gray-400"
+            placeholder="email@example.com" 
+            className="h-14 rounded-full bg-gray-50 border-gray-200 text-lg px-6 focus:ring-black focus:border-black transition-all"
           />
-          <Button className="bg-vibrant-orange hover:bg-orange-600 text-white h-12 px-8 font-bold">
+          <Button className="h-14 px-8 rounded-full bg-black text-white hover:bg-gray-800 text-lg font-medium shrink-0">
             Subscribe
           </Button>
         </div>
-        <p className="text-emerald-100 text-xs mt-4">No spam, unsubscribe at any time.</p>
       </div>
     </section>
   );

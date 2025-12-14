@@ -1,49 +1,35 @@
-import { BadgeCheck, Zap, Leaf, HeadphonesIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function ValueProp() {
-  const props = [
-    {
-      icon: BadgeCheck,
-      title: "Certified Quality",
-      desc: "Every device undergoes a 70-point inspection by expert technicians."
-    },
-    {
-      icon: Zap,
-      title: "Fast & Easy",
-      desc: "Buy instantly or sell in minutes with our AI-powered listing tool."
-    },
-    {
-      icon: Leaf,
-      title: "Eco-Friendly",
-      desc: "Extending the life of tech reduces e-waste and carbon footprint."
-    },
-    {
-      icon: HeadphonesIcon,
-      title: "Expert Support",
-      desc: "Our dedicated team is here to help you 7 days a week."
-    }
+  const values = [
+    { title: "Rigorous Testing", desc: "70+ point inspection by certified humans." },
+    { title: "Fair Market Data", desc: "Real-time pricing based on global sales." },
+    { title: "Circular Economy", desc: "Extending device lifecycles by 3.5 years." },
+    { title: "Fraud Protection", desc: "Zero tolerance for stolen or locked devices." },
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-24 bg-black text-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-           <h2 className="text-3xl font-display font-bold text-royal-blue mb-4">Why Choose ElectroMarket?</h2>
-           <p className="text-gray-500">We're building the most trusted way to trade tech.</p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {props.map((prop, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
-               <div className="w-14 h-14 mx-auto bg-emerald-green/10 rounded-full flex items-center justify-center mb-6 text-emerald-green">
-                 <prop.icon className="w-7 h-7" />
-               </div>
-               <h3 className="text-xl font-bold text-dark-gray mb-3">{prop.title}</h3>
-               <p className="text-gray-500 leading-relaxed text-sm">
-                 {prop.desc}
-               </p>
-            </div>
-          ))}
+        <div className="grid lg:grid-cols-2 gap-16">
+           <div>
+              <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-8">
+                 We take the <br/> risk so you <br/> don't have to.
+              </h2>
+              <button className="flex items-center gap-2 text-lg font-medium hover:text-gray-300 transition-colors">
+                 Read our Quality Report <ArrowUpRight className="w-5 h-5" />
+              </button>
+           </div>
+           
+           <div className="grid sm:grid-cols-2 gap-x-8 gap-y-12">
+              {values.map((val, idx) => (
+                 <div key={idx}>
+                    <div className="w-12 h-px bg-white/20 mb-6"></div>
+                    <h3 className="text-xl font-bold mb-3">{val.title}</h3>
+                    <p className="text-gray-400 leading-relaxed text-sm">{val.desc}</p>
+                 </div>
+              ))}
+           </div>
         </div>
       </div>
     </section>
