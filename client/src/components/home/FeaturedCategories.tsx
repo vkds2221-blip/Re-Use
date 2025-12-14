@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
-import laptopImg from "@assets/stock_images/minimalist_silver_laptop_o_e3740e53.jpg";
-import headphoneImg from "@assets/stock_images/futuristic_headphones_floa_1d9e23c7.jpg";
+import laptopImg from "@assets/stock_images/minimalist_silver_la_814f545f.jpg";
+import headphoneImg from "@assets/stock_images/futuristic_headphone_92652817.jpg";
 
 const categories = [
   { id: 1, name: "Computing", items: "240 items", image: laptopImg },

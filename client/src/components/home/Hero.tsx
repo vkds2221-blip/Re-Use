@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import heroAbstract from "@assets/stock_images/abstract_3d_glass_shapes_iridesce_c940428d.jpg";
+import heroAbstract from "@assets/stock_images/abstract_3d_glass_sh_68a6a953.jpg";
 
 export function Hero() {
   return (
