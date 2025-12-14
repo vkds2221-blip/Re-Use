@@ -1,61 +1,57 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
-
-import laptopImg from "@assets/stock_images/modern_laptop_comput_2adb07ca.jpg";
-import phoneImg from "@assets/stock_images/modern_smartphone_wi_cc21a5f5.jpg";
-import cameraImg from "@assets/stock_images/professional_dslr_ca_6142a9b4.jpg";
-import headphonesImg from "@assets/stock_images/modern_wireless_head_ff6a6a08.jpg";
+import laptopImg from "@assets/stock_images/minimalist_silver_laptop_o_e3740e53.jpg";
+import headphoneImg from "@assets/stock_images/futuristic_headphones_floa_1d9e23c7.jpg";
 
 const products = [
-  { id: 1, name: "MacBook Pro 14\" M1", condition: "Excellent", price: 1199, image: laptopImg, color: "Silver" },
-  { id: 2, name: "iPhone 14 Pro Max", condition: "Good", price: 899, image: phoneImg, color: "Deep Purple" },
-  { id: 3, name: "Sony A7III Body", condition: "Like New", price: 1450, image: cameraImg, color: "Black" },
-  { id: 4, name: "Sony WH-1000XM5", condition: "Refurbished", price: 249, image: headphonesImg, color: "Silver" },
+  { id: 1, name: "MacBook Pro M2", price: "$1,299", image: laptopImg, tag: "Essential" },
+  { id: 2, name: "Sony XM5 Noise Cancelling", price: "$249", image: headphoneImg, tag: "Best Seller" },
+  { id: 3, name: "Leica Q2 Monochrom", price: "$4,100", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1000", tag: "Rare Find" },
+  { id: 4, name: "iPad Pro 12.9\"", price: "$899", image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=1000", tag: "Like New" },
 ];
 
 export function ProductGrid() {
   return (
-    <section className="py-20 bg-gray-50/50">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-10">
-          <h2 className="text-3xl font-display font-bold text-dark-gray">Fresh Arrivals</h2>
+        <div className="flex items-center justify-between mb-16">
+           <h2 className="text-4xl font-display font-bold tracking-tight">Latest <br/> Drops</h2>
+           <Button variant="link" className="text-black underline underline-offset-4 decoration-1">View All</Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <div key={product.id} className="group flex flex-col bg-transparent">
-              {/* Image Container */}
-              <div className="relative aspect-square rounded-3xl overflow-hidden bg-white mb-4 shadow-sm group-hover:shadow-xl transition-all duration-500">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                
-                {/* Floating Actions */}
-                <div className="absolute top-4 right-4 translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
-                  <button className="w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-sm flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
-                    <Heart className="w-5 h-5" />
-                  </button>
-                </div>
-                
-                <div className="absolute bottom-4 left-4">
-                   <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-bold text-dark-gray shadow-sm">
-                     {product.condition}
-                   </span>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+           {products.map((product) => (
+              <div key={product.id} className="group cursor-pointer">
+                 {/* Image Container - No borders, just pure content */}
+                 <div className="relative aspect-[3/4] bg-gray-100 rounded-[2rem] overflow-hidden mb-6">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700" 
+                    />
+                    
+                    {/* Price Tag - Floating Pill */}
+                    <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-4 py-1.5 rounded-full text-sm font-bold shadow-sm">
+                       {product.price}
+                    </div>
 
-              {/* Details */}
-              <div className="px-2">
-                <div className="flex justify-between items-start mb-1">
-                   <h3 className="font-bold text-lg text-dark-gray group-hover:text-royal-blue transition-colors">{product.name}</h3>
-                   <span className="font-bold text-lg text-dark-gray">${product.price}</span>
-                </div>
-                <p className="text-sm text-gray-500 mb-4">{product.color}</p>
-                <Button className="w-full rounded-xl bg-white border border-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-dark-gray transition-all shadow-sm">
-                  Add to Cart
-                </Button>
+                    {/* Tag */}
+                    <div className="absolute top-4 left-4 bg-black/5 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide">
+                       {product.tag}
+                    </div>
+                 </div>
+
+                 {/* Minimal Info */}
+                 <div className="flex justify-between items-start">
+                    <div>
+                       <h3 className="text-xl font-bold mb-1 group-hover:underline decoration-1 underline-offset-4">{product.name}</h3>
+                       <p className="text-gray-500 text-sm">Verified Seller</p>
+                    </div>
+                    <button className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                       +
+                    </button>
+                 </div>
               </div>
-            </div>
-          ))}
+           ))}
         </div>
       </div>
     </section>

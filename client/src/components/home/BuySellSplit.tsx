@@ -1,45 +1,46 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 
 export function BuySellSplit() {
   return (
-    <section className="py-20">
+    <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-6">
-          
-          {/* Buy Card */}
-          <div className="relative overflow-hidden rounded-[2rem] bg-dark-gray p-10 md:p-14 text-white group">
-             <div className="relative z-10 max-w-md">
-               <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 text-xs font-medium mb-6 backdrop-blur-md">For Buyers</span>
-               <h3 className="text-4xl font-display font-bold mb-4">Upgrade your setup for less.</h3>
-               <p className="text-gray-400 mb-8 text-lg">
-                 Get verified tech up to 70% off retail price. 1-year warranty included.
-               </p>
-               <Button className="h-12 px-8 rounded-full bg-white text-dark-gray hover:bg-gray-100 font-bold">
-                 Shop Now
-               </Button>
-             </div>
-             
-             {/* Abstract Gradient Blob */}
-             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-royal-blue to-purple-600 rounded-full blur-[80px] opacity-40 translate-x-1/3 -translate-y-1/3 group-hover:opacity-60 transition-opacity duration-700"></div>
-          </div>
+        <div className="relative rounded-[3rem] overflow-hidden bg-black text-white min-h-[600px] flex flex-col md:flex-row">
+           
+           {/* Left: Buy */}
+           <div className="flex-1 p-12 md:p-20 border-b md:border-b-0 md:border-r border-white/10 group hover:bg-white/5 transition-colors relative overflow-hidden">
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                 <div>
+                    <span className="text-sm font-mono text-gray-400 mb-4 block">01 / BUY</span>
+                    <h3 className="text-5xl md:text-7xl font-display font-bold leading-[0.9] mb-6">
+                       Find <br/> Gems.
+                    </h3>
+                    <p className="text-gray-400 max-w-xs text-lg">Access a curated inventory of premium electronics at up to 70% off.</p>
+                 </div>
+                 <div className="pt-12">
+                    <Button className="rounded-full bg-white text-black hover:bg-gray-200 px-8 h-12">Shop Market</Button>
+                 </div>
+              </div>
+              {/* Hover Effect Blob */}
+              <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+           </div>
 
-          {/* Sell Card */}
-          <div className="relative overflow-hidden rounded-[2rem] bg-gray-100 p-10 md:p-14 text-dark-gray group border border-gray-200">
-             <div className="relative z-10 max-w-md">
-               <span className="inline-block px-3 py-1 rounded-full border border-gray-200 bg-white text-xs font-medium mb-6">For Sellers</span>
-               <h3 className="text-4xl font-display font-bold mb-4">Turn old devices into cash.</h3>
-               <p className="text-gray-500 mb-8 text-lg">
-                 Get an instant AI quote. Free shipping. Fast payment.
-               </p>
-               <Button className="h-12 px-8 rounded-full bg-royal-blue text-white hover:bg-blue-700 font-bold shadow-lg shadow-blue-500/20">
-                 Get Offer
-               </Button>
-             </div>
-             
-             {/* Abstract Gradient Blob */}
-             <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-emerald-green to-teal-400 rounded-full blur-[80px] opacity-20 translate-x-1/3 translate-y-1/3 group-hover:opacity-30 transition-opacity duration-700"></div>
-          </div>
+           {/* Right: Sell */}
+           <div className="flex-1 p-12 md:p-20 group hover:bg-white/5 transition-colors relative overflow-hidden">
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                 <div>
+                    <span className="text-sm font-mono text-gray-400 mb-4 block">02 / SELL</span>
+                    <h3 className="text-5xl md:text-7xl font-display font-bold leading-[0.9] mb-6">
+                       Clear <br/> Space.
+                    </h3>
+                    <p className="text-gray-400 max-w-xs text-lg">Instant AI valuation. We handle shipping, inspection, and the rest.</p>
+                 </div>
+                 <div className="pt-12">
+                    <Button variant="outline" className="rounded-full border-white/20 text-white hover:bg-white hover:text-black px-8 h-12 bg-transparent">Start Selling</Button>
+                 </div>
+              </div>
+               {/* Hover Effect Blob */}
+              <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-green-600/20 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+           </div>
 
         </div>
       </div>
