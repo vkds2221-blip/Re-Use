@@ -20,7 +20,7 @@ export function ProductGrid() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
            {products.map((product) => (
-              <div key={product.id} className="group cursor-pointer">
+              <a href="/product" key={product.id} className="group cursor-pointer">
                  {/* Image Container - No borders, just pure content */}
                  <div className="relative aspect-[3/4] bg-gray-100 rounded-[2rem] overflow-hidden mb-6">
                     <img 
@@ -46,11 +46,11 @@ export function ProductGrid() {
                        <h3 className="text-xl font-bold mb-1 group-hover:underline decoration-1 underline-offset-4">{product.name}</h3>
                        <p className="text-gray-500 text-sm">Verified Seller</p>
                     </div>
-                    <button className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                    <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
                        +
-                    </button>
+                    </div>
                  </div>
-              </div>
+              </a>
            ))}
         </div>
       </div>
