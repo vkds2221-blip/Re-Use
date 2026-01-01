@@ -7,8 +7,8 @@ export function AiPricingStrip() {
   return (
     <section className="py-32 bg-[#050505] text-white relative overflow-hidden">
       {/* Dynamic Background Elements */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-green-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand-blue/10 rounded-full blur-[120px] animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-brand-teal/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -16,37 +16,37 @@ export function AiPricingStrip() {
           {/* Content Side */}
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium mb-8 backdrop-blur-md">
-              <Sparkles className="w-4 h-4 text-blue-400" />
+              <Sparkles className="w-4 h-4 text-brand-blue" />
               <span className="tracking-widest uppercase text-[10px] font-bold text-gray-300">Proprietary AI Vision v2.1</span>
             </div>
             
             <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-[0.9] tracking-tighter">
               PRICING. <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">INSTANTLY.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-teal">INSTANTLY.</span>
             </h2>
             
-            <p className="text-xl text-gray-400 leading-relaxed mb-12 font-medium">
+            <p className="text-xl text-brand-gray-light leading-relaxed mb-12 font-medium">
               Skip the manual appraisal. Our neural engine evaluates your device's aesthetics and hardware health in milliseconds.
             </p>
 
             <div className="space-y-6">
                <div className="flex items-start gap-5 p-6 rounded-3xl bg-white/5 border border-white/5 hover:bg-white/[0.08] transition-colors group cursor-default">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-blue/20 flex items-center justify-center text-brand-blue group-hover:scale-110 transition-transform">
                      <ScanLine className="w-6 h-6" />
                   </div>
                   <div>
                      <h4 className="text-lg font-bold mb-1">Visual Analysis</h4>
-                     <p className="text-sm text-gray-500 leading-relaxed">AI detects scratches, dents, and screen fatigue from a single photo.</p>
+                     <p className="text-sm text-brand-gray leading-relaxed">AI detects scratches, dents, and screen fatigue from a single photo.</p>
                   </div>
                </div>
 
                <div className="flex items-start gap-5 p-6 rounded-3xl bg-white/5 border border-white/5 hover:bg-white/[0.08] transition-colors group cursor-default">
-                  <div className="w-12 h-12 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-teal/20 flex items-center justify-center text-brand-teal group-hover:scale-110 transition-transform">
                      <Zap className="w-6 h-6" />
                   </div>
                   <div>
                      <h4 className="text-lg font-bold mb-1">Market Benchmark</h4>
-                     <p className="text-sm text-gray-500 leading-relaxed">Aggregated data from 50+ marketplaces ensures the highest possible offer.</p>
+                     <p className="text-sm text-brand-gray leading-relaxed">Aggregated data from 50+ marketplaces ensures the highest possible offer.</p>
                   </div>
                </div>
             </div>
@@ -78,13 +78,13 @@ export function AiPricingStrip() {
                          <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-green-500 rounded-full animate-ping [animation-delay:1s]"></div>
                          
                          {/* Scan Line */}
-                         <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-[scan_4s_linear_infinite] shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+                         <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-blue to-transparent animate-[scan_4s_linear_infinite] shadow-[0_0_15px_rgba(29,78,137,0.5)]"></div>
                       </div>
 
                       <div className="text-center relative z-10">
-                         <div className="text-sm font-mono text-blue-400 mb-2 tracking-widest animate-pulse uppercase">Analyzing Shell...</div>
+                         <div className="text-sm font-mono text-brand-blue mb-2 tracking-widest animate-pulse uppercase">Analyzing Shell...</div>
                          <div className="text-6xl font-display font-bold tracking-tighter mb-4">$1,142</div>
-                         <div className="flex items-center gap-2 justify-center py-2 px-4 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold uppercase tracking-widest">
+                         <div className="flex items-center gap-2 justify-center py-2 px-4 rounded-full bg-brand-teal/10 border border-brand-teal/20 text-brand-teal text-xs font-bold uppercase tracking-widest">
                             <CheckCircle2 className="w-3 h-3" /> Offer Guaranteed
                          </div>
                       </div>

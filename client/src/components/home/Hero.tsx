@@ -18,21 +18,21 @@ export function Hero() {
                 The Future of Circular Tech
              </div>
              
-             <h1 className="text-[13vw] lg:text-[7rem] leading-[0.9] font-display font-bold tracking-tighter text-black mb-8 animate-reveal [animation-delay:100ms]">
-                RE<span className="text-gray-300">/</span>USE <br />
-                RE<span className="text-gray-300">/</span>LOVE
+             <h1 className="text-[13vw] lg:text-[7rem] leading-[0.9] font-display font-bold tracking-tighter text-brand-black mb-8 animate-reveal [animation-delay:100ms]">
+                RE<span className="text-brand-gray-light">/</span>USE <br />
+                RE<span className="text-brand-gray-light">/</span>LOVE
              </h1>
              
              <div className="flex flex-col md:flex-row gap-8 items-start md:items-center max-w-xl animate-reveal [animation-delay:200ms]">
-                <p className="text-lg text-gray-500 leading-relaxed">
+                <p className="text-lg text-brand-gray leading-relaxed">
                    The curated marketplace for premium pre-owned electronics. 
                    Verified by experts, protected by warranty.
                 </p>
                 <div className="flex items-center gap-4 flex-shrink-0">
-                   <Button className="h-14 px-8 rounded-full bg-black text-white hover:bg-gray-800 text-base">
+                   <Button className="h-14 px-8 rounded-full bg-brand-blue text-white hover:bg-brand-blue/90 text-base">
                       Start Exploring
                    </Button>
-                   <button className="w-14 h-14 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                   <button className="w-14 h-14 rounded-full border border-brand-gray-light flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all">
                       <ArrowDownRight className="w-6 h-6" />
                    </button>
                 </div>

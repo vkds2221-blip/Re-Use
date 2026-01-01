@@ -41,12 +41,12 @@ export function ProductGrid() {
                  </div>
 
                  {/* Minimal Info */}
-                 <div className="flex justify-between items-start">
+                 <div className="flex justify-between items-start px-2">
                     <div>
-                       <h3 className="text-xl font-bold mb-1 group-hover:underline decoration-1 underline-offset-4">{product.name}</h3>
-                       <p className="text-gray-500 text-sm">Verified Seller</p>
+                       <h3 className="text-xl font-bold mb-1 group-hover:text-brand-blue transition-colors tracking-tight underline-offset-4">{product.name}</h3>
+                       <p className="text-brand-gray text-sm font-medium">Verified Seller</p>
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                    <div className="w-8 h-8 rounded-full bg-brand-black text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 shadow-lg shadow-brand-blue/20">
                        +
                     </div>
                  </div>

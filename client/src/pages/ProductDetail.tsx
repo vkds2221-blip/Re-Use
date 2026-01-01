@@ -137,10 +137,10 @@ export default function ProductDetail() {
                   
                   <div className="relative z-10">
                     <p className="text-gray-400 text-sm font-medium mb-1">Total Price</p>
-                    <div className="flex items-baseline gap-3 mb-6">
-                       <span className="text-5xl font-display font-bold tracking-tight">${product.price}</span>
-                       <span className="text-xl text-gray-500 line-through decoration-1">${product.originalPrice}</span>
-                       <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wide">Save $749</span>
+                 <div className="flex items-baseline gap-3 mb-6">
+                       <span className="text-5xl font-display font-bold tracking-tight text-white">${product.price}</span>
+                       <span className="text-brand-gray line-through decoration-1">${product.originalPrice}</span>
+                       <span className="px-3 py-1 rounded-full bg-brand-amber/20 text-brand-amber text-xs font-bold uppercase tracking-wide">Save $749</span>
                     </div>
                     
                     <div className="space-y-3">

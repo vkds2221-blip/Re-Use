@@ -43,23 +43,23 @@ export default function CategoryPage() {
                 <span>/</span>
                 <span className="text-black">Catalog</span>
               </nav>
-              <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter text-black leading-[0.85] mb-8">
-                SELECT <br/> <span className="text-gray-200">OBJECTS.</span>
+              <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter text-brand-black leading-[0.85] mb-8">
+                SELECT <br/> <span className="text-brand-gray-light/30">OBJECTS.</span>
               </h1>
-              <p className="text-xl text-gray-500 max-w-lg leading-relaxed">
+              <p className="text-xl text-brand-gray max-w-lg leading-relaxed">
                 A meticulously curated archive of verified electronics. Every piece is inspected, certified, and ready for its next chapter.
               </p>
             </div>
             
             {/* Quick Stats / Filter Cards */}
             <div className="grid grid-cols-2 gap-4 w-full lg:w-auto">
-               <div className="p-8 rounded-[2rem] bg-gray-50 flex flex-col justify-between aspect-square w-full lg:w-48">
-                  <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Inventory</span>
-                  <span className="text-4xl font-display font-bold">1.4k</span>
+               <div className="p-8 rounded-[2rem] bg-brand-gray-lighter flex flex-col justify-between aspect-square w-full lg:w-48">
+                  <span className="text-xs font-bold uppercase tracking-widest text-brand-gray">Inventory</span>
+                  <span className="text-4xl font-display font-bold text-brand-black">1.4k</span>
                </div>
-               <div className="p-8 rounded-[2rem] bg-black text-white flex flex-col justify-between aspect-square w-full lg:w-48 group cursor-pointer overflow-hidden relative">
-                  <div className="absolute inset-0 bg-blue-600/20 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-gray-400 relative z-10">Live Drop</span>
+               <div className="p-8 rounded-[2rem] bg-brand-blue text-white flex flex-col justify-between aspect-square w-full lg:w-48 group cursor-pointer overflow-hidden relative">
+                  <div className="absolute inset-0 bg-white/10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-brand-gray-light relative z-10">Live Drop</span>
                   <span className="text-4xl font-display font-bold relative z-10">New</span>
                </div>
             </div>

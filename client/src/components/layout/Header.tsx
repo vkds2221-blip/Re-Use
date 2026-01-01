@@ -28,21 +28,21 @@ export function Header() {
         >
           {/* Logo Area */}
           <a href="/" className="flex items-center gap-2 px-3 group">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-               <span className="font-display font-bold">E</span>
+            <div className="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+               <Zap className="w-5 h-5 fill-white" />
             </div>
-            <span className={cn("font-display font-bold text-lg tracking-tight transition-opacity", scrolled ? "hidden sm:block" : "block")}>
-              ElectroMarket
+            <span className={cn("font-display font-bold text-lg tracking-tight transition-colors", scrolled ? "text-brand-black" : "text-brand-black")}>
+              RE/USE
             </span>
           </a>
 
           {/* Central Nav - Pill */}
-          <div className="hidden md:flex items-center bg-gray-100/50 rounded-full p-1 border border-black/5">
+          <div className="hidden md:flex items-center bg-brand-gray-lighter/50 rounded-full p-1 border border-brand-gray-light/20">
              {["Shop", "Sell", "About", "Support"].map((item) => (
                <a 
                  key={item} 
-                 href="#" 
-                 className="px-5 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-white hover:text-black hover:shadow-sm transition-all"
+                 href={item === 'Shop' ? '/category' : '#'} 
+                 className="px-5 py-2 rounded-full text-sm font-bold uppercase tracking-widest text-brand-gray hover:bg-white hover:text-brand-blue hover:shadow-sm transition-all"
                >
                  {item}
                </a>
@@ -51,17 +51,17 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-2 pr-1">
-             <button className="p-2.5 rounded-full hover:bg-gray-100 text-gray-600 transition-colors">
+             <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors">
                 <Search className="w-5 h-5" />
              </button>
-             <button className="p-2.5 rounded-full hover:bg-gray-100 text-gray-600 transition-colors relative">
+             <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors relative">
                 <ShoppingBag className="w-5 h-5" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-black rounded-full border border-white"></span>
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-amber rounded-full border border-white"></span>
              </button>
              
-             <div className="w-px h-6 bg-gray-200 mx-1 hidden sm:block"></div>
+             <div className="w-px h-6 bg-brand-gray-light/20 mx-1 hidden sm:block"></div>
              
-             <Button className="rounded-full bg-black text-white hover:bg-gray-800 px-6 h-10 hidden sm:flex">
+             <Button className="rounded-full bg-brand-black text-white hover:bg-brand-blue px-6 h-10 hidden sm:flex transition-all">
                Connect
              </Button>
 
