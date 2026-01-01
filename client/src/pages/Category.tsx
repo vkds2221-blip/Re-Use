@@ -86,7 +86,7 @@ export default function CategoryPage() {
               <div className="relative flex-1 w-full md:w-auto">
                 <Input 
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                   placeholder="Search catalog..." 
                   className="h-12 border-none bg-transparent pl-12 focus-visible:ring-0 text-lg placeholder:text-gray-400"
                 />
@@ -189,7 +189,7 @@ export default function CategoryPage() {
 }
 
 // Minimal Internal Component for UX focus
-function Input({ className, ...props }) {
+function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       className={`flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
