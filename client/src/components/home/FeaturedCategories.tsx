@@ -31,7 +31,7 @@ export function FeaturedCategories() {
       <div className="w-full overflow-x-auto pb-8 hide-scrollbar pl-4 md:pl-[max(1rem,calc((100vw-1280px)/2))]">
          <div className="flex gap-4 md:gap-6 w-max">
             {categories.map((cat) => (
-               <div key={cat.id} className="group relative w-[280px] md:w-[360px] aspect-[4/5] rounded-[2rem] overflow-hidden cursor-pointer">
+               <a href="/category" key={cat.id} className="group relative w-[280px] md:w-[360px] aspect-[4/5] rounded-[2rem] overflow-hidden cursor-pointer">
                   <img 
                     src={cat.image} 
                     alt={cat.name} 
@@ -50,7 +50,7 @@ export function FeaturedCategories() {
                         </div>
                      </div>
                   </div>
-               </div>
+               </a>
             ))}
          </div>
       </div>
