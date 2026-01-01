@@ -1,7 +1,15 @@
-import { Search, ShoppingBag, Menu, X, User, Zap } from "lucide-react";
+import { Search, ShoppingBag, Menu, X, User, Zap, ChevronDown, Laptop, Smartphone, Headphones, Camera, Sparkles, TrendingUp, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,6 +22,19 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const shopItems = [
+    { title: "Laptops", icon: Laptop, desc: "MacBooks, Dell XPS & more", href: "/category?type=laptops" },
+    { title: "Phones", icon: Smartphone, desc: "iPhone, Samsung, Pixel", href: "/category?type=phones" },
+    { title: "Audio", icon: Headphones, desc: "Sony, Apple, Bose", href: "/category?type=audio" },
+    { title: "Cameras", icon: Camera, desc: "Sony, Canon, Leica", href: "/category?type=cameras" },
+  ];
+
+  const sellItems = [
+    { title: "Instant Quote", icon: Sparkles, desc: "AI-powered valuation", href: "/sell/quote" },
+    { title: "Marketplace", icon: TrendingUp, desc: "List it yourself", href: "/sell/list" },
+    { title: "Trade-in", icon: ShieldCheck, desc: "Credit for next device", href: "/sell/trade" },
+  ];
 
   return (
     <>
@@ -36,17 +57,70 @@ export function Header() {
             </span>
           </a>
 
-          {/* Central Nav - Pill */}
-          <div className="hidden md:flex items-center bg-brand-gray-lighter/50 rounded-full p-1 border border-brand-gray-light/20">
-             {["Shop", "Sell", "About", "Support"].map((item) => (
-               <a 
-                 key={item} 
-                 href={item === 'Shop' ? '/category' : '#'} 
-                 className="px-5 py-2 rounded-full text-sm font-bold uppercase tracking-widest text-brand-gray hover:bg-white hover:text-brand-blue hover:shadow-sm transition-all"
-               >
-                 {item}
-               </a>
-             ))}
+          {/* Central Nav - Mega Menu */}
+          <div className="hidden md:block">
+            <NavigationMenu>
+              <NavigationMenuList className="gap-2 bg-brand-gray-lighter/50 rounded-full p-1 border border-brand-gray-light/20">
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-white px-5 py-2 h-auto rounded-full text-sm font-bold uppercase tracking-widest text-brand-gray data-[state=open]:bg-white data-[state=open]:text-brand-blue">
+                    Shop
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid grid-cols-2 w-[450px] gap-3 p-4 bg-white/95 backdrop-blur-xl rounded-[2rem] border border-black/5 shadow-2xl">
+                      {shopItems.map((item) => (
+                        <a 
+                          key={item.title} 
+                          href={item.href}
+                          className="group p-4 rounded-2xl hover:bg-brand-gray-lighter transition-all border border-transparent hover:border-black/5"
+                        >
+                          <div className="w-10 h-10 bg-brand-blue/10 rounded-xl flex items-center justify-center text-brand-blue mb-3 group-hover:scale-110 transition-transform">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                          <h4 className="font-bold text-brand-black mb-1">{item.title}</h4>
+                          <p className="text-xs text-brand-gray leading-tight">{item.desc}</p>
+                        </a>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-white px-5 py-2 h-auto rounded-full text-sm font-bold uppercase tracking-widest text-brand-gray data-[state=open]:bg-white data-[state=open]:text-brand-blue">
+                    Sell
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="flex flex-col w-[280px] gap-2 p-3 bg-white/95 backdrop-blur-xl rounded-[2rem] border border-black/5 shadow-2xl">
+                      {sellItems.map((item) => (
+                        <a 
+                          key={item.title} 
+                          href={item.href}
+                          className="group flex items-center gap-4 p-3 rounded-xl hover:bg-brand-gray-lighter transition-all"
+                        >
+                          <div className="w-10 h-10 bg-brand-teal/10 rounded-xl flex items-center justify-center text-brand-teal group-hover:rotate-6 transition-transform">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-sm text-brand-black">{item.title}</h4>
+                            <p className="text-[10px] text-brand-gray font-medium">{item.desc}</p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {["About", "Support"].map((item) => (
+                  <NavigationMenuItem key={item}>
+                    <a 
+                      href="#" 
+                      className="inline-flex px-5 py-2 rounded-full text-sm font-bold uppercase tracking-widest text-brand-gray hover:bg-white hover:text-brand-blue hover:shadow-sm transition-all"
+                    >
+                      {item}
+                    </a>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
           {/* Actions */}
