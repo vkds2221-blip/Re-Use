@@ -12,41 +12,6 @@ import userImg from "@assets/stock_images/happy_young_person_p_636ae91a.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProductDetail() {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [showChat, setShowChat] = useState(false);
-  const [message, setMessage] = useState("");
-  const [chatHistory, setChatHistory] = useState([
-    { role: 'seller', text: "Hi! I'm Alex. Let me know if you have any questions about this MacBook. It's in perfect condition!" }
-  ]);
-  const chatEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    if (showChat) scrollToBottom();
-  }, [chatHistory, showChat]);
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim()) return;
-
-    const newHistory = [...chatHistory, { role: 'user', text: message }];
-    setChatHistory(newHistory);
-    setMessage("");
-
-    // Mock seller response
-    setTimeout(() => {
-      setChatHistory(prev => [...prev, { 
-        role: 'seller', 
-        text: message.toLowerCase().includes('price') || message.toLowerCase().includes('discount')
-          ? "I'm open to offers, but since it's only had 6 battery cycles, I can't go much lower. What did you have in mind?"
-          : "That's a great question. The screen is perfect with no dead pixels or scratches."
-      }]);
-    }, 1000);
-  };
-
   // Mock Data
   const product = {
     name: "MacBook Pro 14\" M3 Max",
@@ -68,6 +33,64 @@ export default function ProductDetail() {
     },
     images: [laptopImg, laptopImg, laptopImg]
   };
+
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [showChat, setShowChat] = useState(false);
+  const [message, setMessage] = useState("");
+  const [offerPrice, setOfferPrice] = useState<number | null>(null);
+  const [isNegotiating, setIsNegotiating] = useState(false);
+  const [chatHistory, setChatHistory] = useState([
+    { role: 'seller', text: "Hi! I'm Alex. Let me know if you have any questions about this MacBook. It's in perfect condition!" }
+  ]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (showChat) scrollToBottom();
+  }, [chatHistory, showChat]);
+
+  const autoOptions = [
+    { label: "Is this available?", text: "Hi, is this MacBook still available?" },
+    { label: "Check condition", text: "Could you tell me more about the screen condition? Any scratches?" },
+    { label: "Negotiate Price", action: () => setIsNegotiating(true) },
+    { label: "Final Price?", text: "What's your best price for a quick pickup/shipping?" },
+  ];
+
+  const bargainOffers = [
+    { label: "-5%", value: Math.round(product.price * 0.95) },
+    { label: "-10%", value: Math.round(product.price * 0.90) },
+    { label: "-15%", value: Math.round(product.price * 0.85) },
+    { label: "Custom", value: null },
+  ];
+
+  const handleSendMessage = (text: string) => {
+    if (!text.trim()) return;
+
+    const newHistory = [...chatHistory, { role: 'user', text: text }];
+    setChatHistory(newHistory);
+    setMessage("");
+    setIsNegotiating(false);
+
+    // Mock seller response
+    setTimeout(() => {
+      let response = "That's a great question. The screen is perfect with no dead pixels or scratches.";
+      if (text.toLowerCase().includes('price') || text.toLowerCase().includes('offer') || text.includes('$')) {
+        response = "I'm open to offers, but since it's only had 6 battery cycles, I can't go much lower. What did you have in mind?";
+      } else if (text.toLowerCase().includes('available')) {
+        response = "Yes, it's still available! I've had a few inquiries but no one has committed yet.";
+      }
+      setChatHistory(prev => [...prev, { role: 'seller', text: response }]);
+    }, 1000);
+  };
+
+  const handleOffer = (price: number) => {
+    handleSendMessage(`I'd like to offer $${price} for this MacBook.`);
+  };
+
+
 
   return (
     <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
@@ -355,9 +378,51 @@ export default function ProductDetail() {
                 <div ref={chatEndRef} />
               </div>
 
+              {/* Quick Options / Bargain UI */}
+              <div className="px-8 pb-4 bg-[#F8F9FB]">
+                <div className="flex flex-wrap gap-2">
+                  {!isNegotiating ? (
+                    autoOptions.map((opt, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => opt.action ? opt.action() : handleSendMessage(opt.text || "")}
+                        className="px-4 py-2 rounded-full bg-white border border-brand-gray-lighter text-xs font-bold text-brand-gray hover:border-brand-blue hover:text-brand-blue transition-all shadow-sm"
+                      >
+                        {opt.label}
+                      </button>
+                    ))
+                  ) : (
+                    <div className="w-full space-y-3 p-4 bg-white rounded-3xl border border-brand-blue/20 shadow-lg animate-in slide-in-from-bottom-2">
+                      <div className="flex justify-between items-center mb-2">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-brand-blue">Select an offer</p>
+                        <button onClick={() => setIsNegotiating(false)} className="text-[10px] font-bold text-brand-gray hover:text-brand-black">Cancel</button>
+                      </div>
+                      <div className="grid grid-cols-4 gap-2">
+                        {bargainOffers.map((offer, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => offer.value && handleOffer(offer.value)}
+                            className="py-3 rounded-xl border border-brand-gray-lighter hover:border-brand-blue hover:bg-brand-blue/5 transition-all flex flex-col items-center justify-center gap-1"
+                          >
+                            <span className="text-[10px] font-bold text-brand-gray">{offer.label}</span>
+                            <span className="text-xs font-black text-brand-black">{offer.value ? `$${offer.value}` : '...'}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* Chat Controls */}
               <div className="p-8 bg-white border-t border-brand-gray-lighter">
-                <form onSubmit={handleSendMessage} className="relative">
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSendMessage(message);
+                  }} 
+                  className="relative"
+                >
                   <input 
                     type="text" 
                     value={message}

@@ -112,7 +112,7 @@ export function Header() {
                 {["About", "Support"].map((item) => (
                   <NavigationMenuItem key={item}>
                     <a 
-                      href="#" 
+                      href={item === "About" ? "/about" : "/support"} 
                       className="inline-flex px-5 py-2 rounded-full text-sm font-bold uppercase tracking-widest text-brand-gray hover:bg-white hover:text-brand-blue hover:shadow-sm transition-all"
                     >
                       {item}
@@ -161,10 +161,15 @@ export function Header() {
                 <X className="w-6 h-6" />
               </button>
            </div>
-           <nav className="flex flex-col gap-2">
-              {["Shop Electronics", "Sell Your Device", "Track Order", "Support"].map(item => (
-                <a key={item} href="#" className="text-3xl font-display font-bold text-gray-900 py-4 border-b border-gray-100 hover:pl-4 transition-all">
-                  {item}
+          <nav className="flex flex-col gap-2">
+              {[
+                { label: "Shop Electronics", href: "/category" },
+                { label: "Sell Your Device", href: "/category?sell=true" },
+                { label: "Track Order", href: "/support" },
+                { label: "Support", href: "/support" }
+              ].map(item => (
+                <a key={item.label} href={item.href} className="text-3xl font-display font-bold text-gray-900 py-4 border-b border-gray-100 hover:pl-4 transition-all">
+                  {item.label}
                 </a>
               ))}
            </nav>
