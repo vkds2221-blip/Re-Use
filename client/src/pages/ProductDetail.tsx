@@ -227,10 +227,12 @@ export default function ProductDetail() {
                        </div>
                        
                        <div className="grid gap-3">
-                          <Button className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group/btn shadow-xl shadow-white/5">
-                             Purchase Now
-                             <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                          </Button>
+                          <a href="/checkout" className="w-full">
+                            <Button className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group/btn shadow-xl shadow-white/5">
+                               Purchase Now
+                               <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                            </Button>
+                          </a>
                           <Button 
                             onClick={() => setShowChat(true)}
                             variant="outline" 
