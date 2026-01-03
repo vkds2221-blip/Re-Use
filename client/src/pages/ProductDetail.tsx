@@ -1,16 +1,50 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { 
   Star, ShieldCheck, CheckCircle2, Truck, RefreshCcw, 
-  Cpu, Battery, Smartphone, Wifi, ChevronRight, Heart, Share2 
+  Cpu, Battery, Smartphone, Wifi, ChevronRight, Heart, Share2,
+  MessageCircle, Send, X
 } from "lucide-react";
 import laptopImg from "@assets/stock_images/minimalist_silver_la_814f545f.jpg";
 import userImg from "@assets/stock_images/happy_young_person_p_636ae91a.jpg";
 
 export default function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [showChat, setShowChat] = useState(false);
+  const [message, setMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState([
+    { role: 'seller', text: "Hi! I'm Alex. Let me know if you have any questions about this MacBook. It's in perfect condition!" }
+  ]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (showChat) scrollToBottom();
+  }, [chatHistory, showChat]);
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+
+    const newHistory = [...chatHistory, { role: 'user', text: message }];
+    setChatHistory(newHistory);
+    setMessage("");
+
+    // Mock seller response
+    setTimeout(() => {
+      setChatHistory(prev => [...prev, { 
+        role: 'seller', 
+        text: message.toLowerCase().includes('price') || message.toLowerCase().includes('discount')
+          ? "I'm open to offers, but since it's only had 6 battery cycles, I can't go much lower. What did you have in mind?"
+          : "That's a great question. The screen is perfect with no dead pixels or scratches."
+      }]);
+    }, 1000);
+  };
 
   // Mock Data
   const product = {
@@ -137,15 +171,23 @@ export default function ProductDetail() {
                   
                   <div className="relative z-10">
                     <p className="text-gray-400 text-sm font-medium mb-1">Total Price</p>
-                 <div className="flex items-baseline gap-3 mb-6">
+                    <div className="flex items-baseline gap-3 mb-6">
                        <span className="text-5xl font-display font-bold tracking-tight text-white">${product.price}</span>
-                       <span className="text-brand-gray line-through decoration-1">${product.originalPrice}</span>
+                       <span className="text-brand-gray line-through decoration-1 text-xl">${product.originalPrice}</span>
                        <span className="px-3 py-1 rounded-full bg-brand-amber/20 text-brand-amber text-xs font-bold uppercase tracking-wide">Save $749</span>
                     </div>
                     
-                    <div className="space-y-3">
+                    <div className="flex flex-col gap-3">
                        <Button className="w-full h-14 rounded-full bg-white text-black hover:bg-gray-100 text-lg font-bold">
                           Add to Cart
+                       </Button>
+                       <Button 
+                         onClick={() => setShowChat(true)}
+                         variant="outline" 
+                         className="w-full h-14 rounded-full border-white/20 text-white hover:bg-white/10 text-lg font-bold flex items-center justify-center gap-2 bg-transparent"
+                       >
+                          <MessageCircle className="w-5 h-5" />
+                          Negotiate Price
                        </Button>
                        <p className="text-center text-xs text-gray-500">Free 2-day shipping included</p>
                     </div>
@@ -208,6 +250,69 @@ export default function ProductDetail() {
           </div>
         </div>
       </main>
+
+      {/* Negotiation Chatbox */}
+      {showChat && (
+        <div className="fixed bottom-8 right-8 w-96 max-w-[calc(100vw-4rem)] bg-white rounded-3xl shadow-2xl border border-gray-100 z-50 flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 duration-500">
+          {/* Chat Header */}
+          <div className="p-6 bg-black text-white flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20">
+                <img src={userImg} alt={product.seller.name} className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="font-bold text-sm">Chat with {product.seller.name}</p>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                  <p className="text-[10px] text-gray-400 font-medium">Online now</p>
+                </div>
+              </div>
+            </div>
+            <button 
+              onClick={() => setShowChat(false)}
+              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Chat Content */}
+          <div className="flex-1 h-[400px] overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+            {chatHistory.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[80%] p-4 rounded-2xl text-sm ${
+                  msg.role === 'user' 
+                    ? 'bg-brand-blue text-white rounded-tr-none shadow-lg shadow-brand-blue/10' 
+                    : 'bg-white text-black border border-gray-100 rounded-tl-none shadow-sm'
+                }`}>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+
+          {/* Chat Input */}
+          <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-gray-100">
+            <div className="relative">
+              <input 
+                type="text" 
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type your offer or question..."
+                className="w-full h-12 pl-4 pr-12 rounded-full bg-gray-100 border-none focus:ring-2 focus:ring-brand-blue/20 text-sm transition-all"
+              />
+              <button 
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black text-white flex items-center justify-center hover:bg-brand-blue transition-colors"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-[10px] text-center text-gray-400 mt-3 font-medium">Your negotiation is private between you and the seller</p>
+          </form>
+        </div>
+      )}
 
       <Footer />
     </div>
