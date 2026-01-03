@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { 
   Star, ShieldCheck, CheckCircle2, Truck, RefreshCcw, 
   Cpu, Battery, Smartphone, Wifi, ChevronRight, Heart, Share2,
-  MessageCircle, Send, X
+  MessageCircle, Send, X, Shield, Clock, Zap, ArrowRight, Check
 } from "lucide-react";
 import laptopImg from "@assets/stock_images/minimalist_silver_la_814f545f.jpg";
 import userImg from "@assets/stock_images/happy_young_person_p_636ae91a.jpg";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -65,184 +66,218 @@ export default function ProductDetail() {
       sales: 142,
       joined: "2023"
     },
-    images: [laptopImg, laptopImg, laptopImg] // Reusing for demo
+    images: [laptopImg, laptopImg, laptopImg]
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
       <Header />
       
       <main className="pt-32 pb-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 lg:px-8">
           
-          {/* Breadcrumb - Minimal */}
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
-            <a href="/" className="hover:text-black transition-colors">Home</a>
-            <ChevronRight className="w-4 h-4" />
-            <a href="#" className="hover:text-black transition-colors">Laptops</a>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-black">MacBook Pro</span>
-          </div>
+          {/* Enhanced Breadcrumb */}
+          <nav className="flex items-center gap-3 text-sm text-brand-gray mb-12 font-medium overflow-x-auto whitespace-nowrap pb-2 no-scrollbar">
+            <a href="/" className="hover:text-brand-blue transition-colors">Marketplace</a>
+            <ChevronRight className="w-4 h-4 text-brand-gray-light" />
+            <a href="/category" className="hover:text-brand-blue transition-colors">Laptops</a>
+            <ChevronRight className="w-4 h-4 text-brand-gray-light" />
+            <span className="text-brand-black font-semibold">{product.name}</span>
+          </nav>
 
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-24">
+          <div className="grid lg:grid-cols-12 gap-12 xl:gap-20">
             
-            {/* Left Column: Sticky Gallery */}
+            {/* Left Column: Immersive Gallery */}
             <div className="lg:col-span-7">
-               <div className="sticky top-32 space-y-6">
-                 {/* Main Image */}
-                 <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-gray-100 border border-gray-100 shadow-sm group">
-                    <img 
+               <div className="lg:sticky lg:top-32 space-y-8">
+                 {/* Main Stage */}
+                 <div className="relative aspect-[4/3] rounded-[3rem] overflow-hidden bg-white border border-brand-gray-lighter shadow-[0_20px_50px_rgba(0,0,0,0.03)] group">
+                    <motion.img 
+                      key={selectedImage}
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
                       src={product.images[selectedImage]} 
                       alt={product.name} 
-                      className="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" 
+                      className="w-full h-full object-cover mix-blend-multiply transition-transform duration-1000 group-hover:scale-105" 
                     />
                     
-                    {/* Floating Condition Tag */}
-                    <div className="absolute top-6 left-6 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-sm flex items-center gap-2">
-                       <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                       <span className="text-sm font-bold text-black">{product.condition} Condition</span>
+                    {/* Floating Status Badges */}
+                    <div className="absolute top-8 left-8 flex flex-col gap-3">
+                       <div className="bg-white/90 backdrop-blur-xl px-5 py-2.5 rounded-full border border-white/50 shadow-xl flex items-center gap-3">
+                          <div className="w-2.5 h-2.5 rounded-full bg-brand-teal animate-pulse"></div>
+                          <span className="text-xs font-bold text-brand-black tracking-tight">{product.condition} Condition</span>
+                       </div>
+                       <div className="bg-brand-black/90 backdrop-blur-xl px-5 py-2.5 rounded-full border border-white/10 shadow-xl flex items-center gap-3 text-white">
+                          <Zap className="w-3.5 h-3.5 text-brand-amber fill-brand-amber" />
+                          <span className="text-[10px] font-bold uppercase tracking-widest">Certified Verified</span>
+                       </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="absolute top-6 right-6 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
-                       <button className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-gray-50 shadow-sm transition-colors">
+                    {/* Action Controls */}
+                    <div className="absolute top-8 right-8 flex flex-col gap-3">
+                       <button className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-brand-blue hover:text-white shadow-xl transition-all duration-300 transform hover:scale-110">
                           <Heart className="w-5 h-5" />
                        </button>
-                       <button className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-gray-50 shadow-sm transition-colors">
+                       <button className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-brand-blue hover:text-white shadow-xl transition-all duration-300 transform hover:scale-110">
                           <Share2 className="w-5 h-5" />
                        </button>
                     </div>
                  </div>
 
-                 {/* Thumbnails */}
-                 <div className="flex gap-4 overflow-x-auto pb-2">
+                 {/* High-Performance Thumbnails */}
+                 <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                     {product.images.map((img, idx) => (
                        <button 
                          key={idx} 
                          onClick={() => setSelectedImage(idx)}
-                         className={`relative w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all flex-shrink-0 ${selectedImage === idx ? 'border-black' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                         className={`relative w-24 h-24 rounded-[1.5rem] overflow-hidden border-2 transition-all duration-300 flex-shrink-0 group ${selectedImage === idx ? 'border-brand-blue ring-4 ring-brand-blue/10 scale-95' : 'border-transparent opacity-50 hover:opacity-100 hover:scale-105'}`}
                        >
-                          <img src={img} alt="" className="w-full h-full object-cover" />
+                          <img src={img} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                        </button>
                     ))}
                  </div>
 
-                 {/* Trust Cards (Desktop) */}
-                 <div className="hidden lg:grid grid-cols-2 gap-4 mt-8">
-                    <div className="p-6 rounded-3xl bg-gray-50 flex items-start gap-4">
-                       <ShieldCheck className="w-6 h-6 text-black mt-1" />
+                 {/* Reliability Indicators */}
+                 <div className="hidden lg:grid grid-cols-2 gap-6 pt-4">
+                    <div className="p-8 rounded-[2.5rem] bg-white border border-brand-gray-lighter shadow-sm flex items-start gap-5 hover:border-brand-blue/30 transition-colors">
+                       <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 flex items-center justify-center flex-shrink-0 text-brand-blue">
+                          <ShieldCheck className="w-6 h-6" />
+                       </div>
                        <div>
-                          <h4 className="font-bold text-sm mb-1">12-Month Warranty</h4>
-                          <p className="text-xs text-gray-500 leading-relaxed">Included for free with every purchase. Covers hardware defects.</p>
+                          <h4 className="font-bold text-brand-black mb-1">Protection Plan</h4>
+                          <p className="text-xs text-brand-gray leading-relaxed font-medium">12-month hardware coverage included as standard.</p>
                        </div>
                     </div>
-                    <div className="p-6 rounded-3xl bg-gray-50 flex items-start gap-4">
-                       <RefreshCcw className="w-6 h-6 text-black mt-1" />
+                    <div className="p-8 rounded-[2.5rem] bg-white border border-brand-gray-lighter shadow-sm flex items-start gap-5 hover:border-brand-blue/30 transition-colors">
+                       <div className="w-12 h-12 rounded-2xl bg-brand-teal/5 flex items-center justify-center flex-shrink-0 text-brand-teal">
+                          <RefreshCcw className="w-6 h-6" />
+                       </div>
                        <div>
-                          <h4 className="font-bold text-sm mb-1">30-Day Returns</h4>
-                          <p className="text-xs text-gray-500 leading-relaxed">Don't love it? Send it back for a full refund, no questions asked.</p>
+                          <h4 className="font-bold text-brand-black mb-1">30-Day Window</h4>
+                          <p className="text-xs text-brand-gray leading-relaxed font-medium">Free returns for any reason within the first month.</p>
                        </div>
                     </div>
                  </div>
                </div>
             </div>
 
-            {/* Right Column: Product Details */}
-            <div className="lg:col-span-5 relative">
+            {/* Right Column: Narrative & Action */}
+            <div className="lg:col-span-5 space-y-12">
                
-               {/* Header */}
-               <div className="mb-8">
-                 <h1 className="text-4xl md:text-5xl font-display font-bold text-black mb-4 tracking-tight leading-[1.1]">
+               {/* Main Title & Social Proof */}
+               <div className="space-y-4">
+                 <h1 className="text-5xl xl:text-6xl font-display font-bold text-brand-black tracking-tight leading-[0.95]">
                    {product.name}
                  </h1>
-                 <div className="flex items-center gap-4 text-sm font-medium">
-                    <div className="flex items-center gap-1 text-orange-500">
-                       <Star className="w-4 h-4 fill-orange-500" />
-                       <span>4.9 (12 reviews)</span>
+                 <div className="flex flex-wrap items-center gap-6">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-amber/10 border border-brand-amber/20">
+                       <Star className="w-3.5 h-3.5 fill-brand-amber text-brand-amber" />
+                       <span className="text-xs font-bold text-brand-amber">4.9</span>
+                       <span className="text-[10px] text-brand-amber/70 font-medium ml-1">(12 reviews)</span>
                     </div>
-                    <span className="text-gray-300">|</span>
-                    <span className="text-gray-500">Verified Listing #8492</span>
+                    <div className="flex items-center gap-2 text-xs font-bold text-brand-gray-light uppercase tracking-widest">
+                       <Shield className="w-3.5 h-3.5" />
+                       Verified Listing
+                    </div>
                  </div>
                </div>
 
-               {/* Price Card */}
-               <div className="p-8 rounded-[2rem] bg-black text-white mb-10 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-600/30 transition-colors duration-700"></div>
-                  
-                  <div className="relative z-10">
-                    <p className="text-gray-400 text-sm font-medium mb-1">Total Price</p>
-                    <div className="flex items-baseline gap-3 mb-6">
-                       <span className="text-5xl font-display font-bold tracking-tight text-white">${product.price}</span>
-                       <span className="text-brand-gray line-through decoration-1 text-xl">${product.originalPrice}</span>
-                       <span className="px-3 py-1 rounded-full bg-brand-amber/20 text-brand-amber text-xs font-bold uppercase tracking-wide">Save $749</span>
-                    </div>
+               {/* Transaction Hub */}
+               <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-brand-blue to-brand-teal rounded-[2.5rem] blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                  <div className="relative p-10 rounded-[2.5rem] bg-brand-black text-white shadow-2xl overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
                     
-                    <div className="flex flex-col gap-3">
-                       <Button className="w-full h-14 rounded-full bg-white text-black hover:bg-gray-100 text-lg font-bold">
-                          Add to Cart
-                       </Button>
-                       <Button 
-                         onClick={() => setShowChat(true)}
-                         variant="outline" 
-                         className="w-full h-14 rounded-full border-white/20 text-white hover:bg-white/10 text-lg font-bold flex items-center justify-center gap-2 bg-transparent"
-                       >
-                          <MessageCircle className="w-5 h-5" />
-                          Negotiate Price
-                       </Button>
-                       <p className="text-center text-xs text-gray-500">Free 2-day shipping included</p>
+                    <div className="relative z-10 space-y-8">
+                       <div className="flex justify-between items-start">
+                          <div>
+                            <p className="text-brand-gray-light text-xs font-bold uppercase tracking-widest mb-2">Price Estimate</p>
+                            <div className="flex items-baseline gap-4">
+                               <span className="text-6xl font-display font-bold tracking-tight">${product.price}</span>
+                               <span className="text-xl text-brand-gray line-through font-medium opacity-50">${product.originalPrice}</span>
+                            </div>
+                          </div>
+                          <div className="bg-brand-amber text-white px-4 py-1.5 rounded-full text-[10px] font-black tracking-tighter uppercase animate-bounce">
+                             Save $749
+                          </div>
+                       </div>
+                       
+                       <div className="grid gap-3">
+                          <Button className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group/btn shadow-xl shadow-white/5">
+                             Purchase Now
+                             <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          </Button>
+                          <Button 
+                            onClick={() => setShowChat(true)}
+                            variant="outline" 
+                            className="w-full h-16 rounded-full border-white/20 text-white hover:bg-white/10 text-lg font-bold flex items-center justify-center gap-3 bg-transparent backdrop-blur-sm transition-all"
+                          >
+                             <MessageCircle className="w-5 h-5" />
+                             Make an Offer
+                          </Button>
+                       </div>
+                       
+                       <div className="flex items-center justify-center gap-6 pt-4 border-t border-white/5">
+                          <div className="flex items-center gap-2 text-[10px] font-bold text-brand-gray uppercase tracking-widest">
+                             <Truck className="w-3 h-3" /> Free Express
+                          </div>
+                          <div className="flex items-center gap-2 text-[10px] font-bold text-brand-gray uppercase tracking-widest">
+                             <Clock className="w-3 h-3" /> Ships Today
+                          </div>
+                       </div>
                     </div>
                   </div>
                </div>
 
-               {/* Specs Grid (Bento) */}
-               <div className="mb-10">
-                  <h3 className="text-xl font-display font-bold mb-6">Technical Specs</h3>
+               {/* Bento Spec Sheets */}
+               <div className="space-y-6">
+                  <div className="flex items-end justify-between">
+                    <h3 className="text-2xl font-display font-bold text-brand-black">Specifications</h3>
+                    <button className="text-xs font-bold text-brand-blue hover:underline">Full Sheet</button>
+                  </div>
                   <div className="grid grid-cols-2 gap-4">
                      {product.specs.map((spec, idx) => (
-                        <div key={idx} className="p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors">
-                           <spec.icon className="w-5 h-5 text-gray-400 mb-3" />
-                           <p className="text-xs text-gray-500 font-medium mb-1">{spec.label}</p>
-                           <p className="font-bold text-black">{spec.value}</p>
+                        <div key={idx} className="p-6 rounded-3xl bg-white border border-brand-gray-lighter hover:border-brand-blue/20 transition-all shadow-sm group">
+                           <div className="w-10 h-10 rounded-xl bg-brand-gray-lighter flex items-center justify-center text-brand-gray mb-4 group-hover:bg-brand-blue/10 group-hover:text-brand-blue transition-colors">
+                              <spec.icon className="w-5 h-5" />
+                           </div>
+                           <p className="text-[10px] text-brand-gray font-black uppercase tracking-widest mb-1">{spec.label}</p>
+                           <p className="font-bold text-brand-black text-sm">{spec.value}</p>
                         </div>
                      ))}
                   </div>
                </div>
 
-               {/* Seller Profile */}
-               <div className="mb-10">
-                  <h3 className="text-xl font-display font-bold mb-6">Sold By</h3>
-                  <div className="p-6 rounded-3xl border border-gray-100 flex items-center justify-between hover:border-gray-200 transition-colors hover:shadow-sm">
-                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-100">
-                           <img src={userImg} alt={product.seller.name} className="w-full h-full object-cover" />
+               {/* Elevated Seller Experience */}
+               <div className="space-y-6">
+                  <h3 className="text-2xl font-display font-bold text-brand-black">Trust Profile</h3>
+                  <div className="p-8 rounded-[2.5rem] bg-white border border-brand-gray-lighter flex flex-col sm:flex-row items-center justify-between gap-8 hover:shadow-xl hover:shadow-black/5 transition-all">
+                     <div className="flex items-center gap-6">
+                        <div className="relative">
+                           <div className="w-20 h-20 rounded-full overflow-hidden ring-4 ring-brand-gray-lighter">
+                              <img src={userImg} alt={product.seller.name} className="w-full h-full object-cover" />
+                           </div>
+                           <div className="absolute -bottom-1 -right-1 bg-brand-blue text-white p-1.5 rounded-full ring-4 ring-white shadow-lg">
+                              <Check className="w-3 h-3" />
+                           </div>
                         </div>
                         <div>
-                           <div className="flex items-center gap-2">
-                              <h4 className="font-bold text-lg">{product.seller.name}</h4>
-                              <CheckCircle2 className="w-4 h-4 text-blue-500" />
+                           <div className="flex items-center gap-2 mb-1">
+                              <h4 className="font-bold text-xl text-brand-black">{product.seller.name}</h4>
                            </div>
-                           <p className="text-sm text-gray-500">Member since {product.seller.joined} • {product.seller.sales} Sales</p>
+                           <p className="text-xs text-brand-gray font-medium">Expert Tier • {product.seller.sales} Successful Sales</p>
+                           <div className="flex items-center gap-1 mt-2">
+                              {[...Array(5)].map((_, i) => (
+                                 <Star key={i} className="w-3 h-3 fill-brand-amber text-brand-amber" />
+                              ))}
+                              <span className="text-[10px] font-bold text-brand-gray ml-2">5.0 RATING</span>
+                           </div>
                         </div>
                      </div>
-                     <div className="text-right">
-                        <div className="flex items-center gap-1 justify-end font-bold">
-                           <Star className="w-4 h-4 fill-black text-black" />
-                           {product.seller.rating}
-                        </div>
-                        <button className="text-sm font-medium text-blue-600 hover:underline">View Profile</button>
-                     </div>
-                  </div>
-               </div>
-
-               {/* Trust Cards (Mobile Only) */}
-               <div className="lg:hidden space-y-4">
-                  <div className="p-5 rounded-2xl bg-gray-50 flex items-center gap-4">
-                     <ShieldCheck className="w-5 h-5 text-black" />
-                     <span className="font-bold text-sm">12-Month Warranty</span>
-                  </div>
-                  <div className="p-5 rounded-2xl bg-gray-50 flex items-center gap-4">
-                     <Truck className="w-5 h-5 text-black" />
-                     <span className="font-bold text-sm">Free Express Shipping</span>
+                     <Button variant="outline" className="rounded-full px-8 h-12 border-brand-gray-light text-brand-gray hover:bg-brand-black hover:text-white font-bold transition-all">
+                        View Dossier
+                     </Button>
                   </div>
                </div>
 
@@ -251,68 +286,101 @@ export default function ProductDetail() {
         </div>
       </main>
 
-      {/* Negotiation Chatbox */}
-      {showChat && (
-        <div className="fixed bottom-8 right-8 w-96 max-w-[calc(100vw-4rem)] bg-white rounded-3xl shadow-2xl border border-gray-100 z-50 flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 duration-500">
-          {/* Chat Header */}
-          <div className="p-6 bg-black text-white flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20">
-                <img src={userImg} alt={product.seller.name} className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <p className="font-bold text-sm">Chat with {product.seller.name}</p>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                  <p className="text-[10px] text-gray-400 font-medium">Online now</p>
-                </div>
-              </div>
-            </div>
-            <button 
+      {/* Negotiation Chatbox - High Polish */}
+      <AnimatePresence>
+        {showChat && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setShowChat(false)}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              className="fixed inset-0 bg-brand-black/20 backdrop-blur-sm z-40"
+            />
+            <motion.div 
+              initial={{ opacity: 0, y: 100, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 100, scale: 0.95 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed bottom-8 right-8 w-[420px] max-w-[calc(100vw-4rem)] h-[600px] bg-white rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.15)] border border-brand-gray-lighter z-50 flex flex-col overflow-hidden"
             >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Chat Content */}
-          <div className="flex-1 h-[400px] overflow-y-auto p-6 space-y-4 bg-gray-50/50">
-            {chatHistory.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-4 rounded-2xl text-sm ${
-                  msg.role === 'user' 
-                    ? 'bg-brand-blue text-white rounded-tr-none shadow-lg shadow-brand-blue/10' 
-                    : 'bg-white text-black border border-gray-100 rounded-tl-none shadow-sm'
-                }`}>
-                  {msg.text}
+              {/* Chat Header */}
+              <div className="p-8 bg-brand-black text-white relative">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/20 rounded-full blur-3xl"></div>
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div className="w-12 h-12 rounded-2xl overflow-hidden border border-white/20">
+                        <img src={userImg} alt={product.seller.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-teal rounded-full ring-2 ring-brand-black animate-pulse"></div>
+                    </div>
+                    <div>
+                      <p className="font-bold text-lg">{product.seller.name}</p>
+                      <p className="text-[10px] text-brand-gray-light font-bold uppercase tracking-widest opacity-60">Verified Seller</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setShowChat(false)}
+                    className="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
-            ))}
-            <div ref={chatEndRef} />
-          </div>
 
-          {/* Chat Input */}
-          <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-gray-100">
-            <div className="relative">
-              <input 
-                type="text" 
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type your offer or question..."
-                className="w-full h-12 pl-4 pr-12 rounded-full bg-gray-100 border-none focus:ring-2 focus:ring-brand-blue/20 text-sm transition-all"
-              />
-              <button 
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black text-white flex items-center justify-center hover:bg-brand-blue transition-colors"
-              >
-                <Send className="w-4 h-4" />
-              </button>
-            </div>
-            <p className="text-[10px] text-center text-gray-400 mt-3 font-medium">Your negotiation is private between you and the seller</p>
-          </form>
-        </div>
-      )}
+              {/* Chat Body */}
+              <div className="flex-1 overflow-y-auto p-8 space-y-6 bg-[#F8F9FB]">
+                <div className="text-center py-4">
+                   <div className="inline-block px-4 py-1.5 rounded-full bg-brand-gray-lighter text-[10px] font-bold text-brand-gray uppercase tracking-widest">
+                      Negotiation Started • {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                   </div>
+                </div>
+                {chatHistory.map((msg, i) => (
+                  <motion.div 
+                    initial={{ opacity: 0, x: msg.role === 'user' ? 20 : -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    key={i} 
+                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div className={`max-w-[85%] p-5 rounded-[2rem] text-sm leading-relaxed ${
+                      msg.role === 'user' 
+                        ? 'bg-brand-blue text-white rounded-tr-none shadow-xl shadow-brand-blue/20' 
+                        : 'bg-white text-brand-black border border-brand-gray-lighter rounded-tl-none shadow-sm font-medium'
+                    }`}>
+                      {msg.text}
+                    </div>
+                  </motion.div>
+                ))}
+                <div ref={chatEndRef} />
+              </div>
+
+              {/* Chat Controls */}
+              <div className="p-8 bg-white border-t border-brand-gray-lighter">
+                <form onSubmit={handleSendMessage} className="relative">
+                  <input 
+                    type="text" 
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Message Alex..."
+                    className="w-full h-16 pl-6 pr-16 rounded-3xl bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 text-sm font-medium transition-all"
+                  />
+                  <button 
+                    type="submit"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-2xl bg-brand-black text-white flex items-center justify-center hover:bg-brand-blue transition-all active:scale-95 shadow-lg"
+                  >
+                    <Send className="w-5 h-5" />
+                  </button>
+                </form>
+                <div className="mt-4 flex items-center justify-center gap-2">
+                   <Shield className="w-3 h-3 text-brand-teal" />
+                   <span className="text-[10px] font-bold text-brand-gray uppercase tracking-tighter">Secured by ElectroMarket Escrow</span>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
