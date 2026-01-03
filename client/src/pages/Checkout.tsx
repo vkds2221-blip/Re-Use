@@ -30,6 +30,7 @@ export default function Checkout() {
   ];
 
   const [selectedDelivery, setSelectedDelivery] = useState(deliveryOptions[0]);
+  const [selectedPayment, setSelectedPayment] = useState("card");
 
   return (
     <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
@@ -155,37 +156,87 @@ export default function Checkout() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                       >
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                          <button className="p-6 rounded-[2rem] border-2 border-brand-blue bg-brand-blue/5 flex flex-col items-center gap-3 text-center">
-                            <CardIcon className="w-6 h-6 text-brand-blue" />
-                            <span className="text-xs font-bold text-brand-black">Credit Card</span>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                          <button 
+                            onClick={() => setSelectedPayment("card")}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "card" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                          >
+                            <CardIcon className={`w-6 h-6 ${selectedPayment === "card" ? 'text-brand-blue' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold ${selectedPayment === "card" ? 'text-brand-black' : 'text-brand-gray'}`}>Card</span>
                           </button>
-                          <button className="p-6 rounded-[2rem] border border-brand-gray-lighter hover:border-brand-blue/30 flex flex-col items-center gap-3 text-center transition-all bg-white">
-                            <Apple className="w-6 h-6 text-brand-black" />
-                            <span className="text-xs font-bold text-brand-gray">Apple Pay</span>
+                          <button 
+                            onClick={() => setSelectedPayment("apple")}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "apple" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                          >
+                            <Apple className={`w-6 h-6 ${selectedPayment === "apple" ? 'text-brand-black' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold ${selectedPayment === "apple" ? 'text-brand-black' : 'text-brand-gray'}`}>Apple Pay</span>
                           </button>
-                          <button className="p-6 rounded-[2rem] border border-brand-gray-lighter hover:border-brand-blue/30 flex flex-col items-center gap-3 text-center transition-all bg-white">
-                            <Wallet className="w-6 h-6 text-brand-amber" />
-                            <span className="text-xs font-bold text-brand-gray">Wallet</span>
+                          <button 
+                            onClick={() => setSelectedPayment("upi")}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "upi" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                          >
+                            <Zap className={`w-6 h-6 ${selectedPayment === "upi" ? 'text-brand-teal' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold ${selectedPayment === "upi" ? 'text-brand-black' : 'text-brand-gray'}`}>UPI</span>
+                          </button>
+                          <button 
+                            onClick={() => setSelectedPayment("wallet")}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "wallet" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                          >
+                            <Wallet className={`w-6 h-6 ${selectedPayment === "wallet" ? 'text-brand-amber' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold ${selectedPayment === "wallet" ? 'text-brand-black' : 'text-brand-gray'}`}>Wallet</span>
                           </button>
                         </div>
 
-                        <div className="space-y-6">
-                          <div className="space-y-3">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Cardholder Name</label>
-                            <input type="text" placeholder="Alex Johnson" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-medium" />
-                          </div>
-                          <div className="space-y-3">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Card Details</label>
-                            <div className="relative">
-                              <input type="text" placeholder="4242 4242 4242 4242" className="w-full h-16 pl-6 pr-40 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-medium tracking-[0.2em]" />
-                              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                                <input type="text" placeholder="MM/YY" className="w-16 bg-white rounded-xl px-2 h-10 text-[10px] font-bold text-center border-none" />
-                                <input type="text" placeholder="CVC" className="w-16 bg-white rounded-xl px-2 h-10 text-[10px] font-bold text-center border-none" />
+                        <AnimatePresence mode="wait">
+                          {selectedPayment === "card" ? (
+                            <motion.div 
+                              key="card-fields"
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="space-y-6 overflow-hidden"
+                            >
+                              <div className="space-y-3">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Cardholder Name</label>
+                                <input type="text" placeholder="Alex Johnson" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-medium" />
                               </div>
-                            </div>
-                          </div>
-                        </div>
+                              <div className="space-y-3">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Card Details</label>
+                                <div className="relative">
+                                  <input type="text" placeholder="4242 4242 4242 4242" className="w-full h-16 pl-6 pr-40 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-medium tracking-[0.2em]" />
+                                  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                    <input type="text" placeholder="MM/YY" className="w-16 bg-white rounded-xl px-2 h-10 text-[10px] font-bold text-center border-none" />
+                                    <input type="text" placeholder="CVC" className="w-16 bg-white rounded-xl px-2 h-10 text-[10px] font-bold text-center border-none" />
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          ) : selectedPayment === "upi" ? (
+                            <motion.div 
+                              key="upi-fields"
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="space-y-6 overflow-hidden"
+                            >
+                              <div className="space-y-3">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">UPI ID</label>
+                                <input type="text" placeholder="alex@upi" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-medium" />
+                              </div>
+                              <p className="text-[10px] text-brand-gray font-bold text-center uppercase tracking-widest">A request will be sent to your mobile app</p>
+                            </motion.div>
+                          ) : (
+                            <motion.div 
+                              key="express-fields"
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="p-8 rounded-[2rem] bg-brand-gray-lighter/30 border border-dashed border-brand-gray-lighter text-center"
+                            >
+                              <p className="text-sm font-bold text-brand-gray">Express checkout will open in a secure popup</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
 
                         <div className="flex items-center gap-3 p-6 rounded-[2rem] bg-brand-gray-lighter/50 border border-brand-gray-lighter">
                           <Shield className="w-5 h-5 text-brand-blue" />
