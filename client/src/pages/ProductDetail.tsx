@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { 
   Star, ShieldCheck, CheckCircle2, Truck, RefreshCcw, 
   Cpu, Battery, Smartphone, Wifi, ChevronRight, Heart, Share2,
-  MessageCircle, Send, X, Shield, Clock, Zap, ArrowRight, Check
+  MessageCircle, Send, X, Shield, Clock, Zap, ArrowRight, Check,
+  ShoppingBag
 } from "lucide-react";
 import laptopImg from "@assets/stock_images/minimalist_silver_la_814f545f.jpg";
 import userImg from "@assets/stock_images/happy_young_person_p_636ae91a.jpg";
@@ -227,12 +228,17 @@ export default function ProductDetail() {
                        </div>
                        
                        <div className="grid gap-3">
-                          <a href="/checkout" className="w-full">
-                            <Button className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group/btn shadow-xl shadow-white/5">
-                               Purchase Now
-                               <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                            </Button>
-                          </a>
+                          <Button 
+                            onClick={() => {
+                              window.dispatchEvent(new CustomEvent('add-to-cart', { 
+                                detail: { ...product, id: 'macbook-m3-max' } 
+                              }));
+                            }}
+                            className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group/btn shadow-xl shadow-white/5"
+                          >
+                             Add to Bag
+                             <ShoppingBag className="w-5 h-5 ml-2 group-hover/btn:scale-110 transition-transform" />
+                          </Button>
                           <Button 
                             onClick={() => setShowChat(true)}
                             variant="outline" 

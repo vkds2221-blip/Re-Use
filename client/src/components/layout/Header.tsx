@@ -14,6 +14,19 @@ import {
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [isCartAnimating, setIsCartAnimating] = useState(false);
+
+  useEffect(() => {
+    const handleAddToCart = () => {
+      setCartCount(prev => prev + 1);
+      setIsCartAnimating(true);
+      setTimeout(() => setIsCartAnimating(false), 1000);
+    };
+
+    window.addEventListener('add-to-cart', handleAddToCart);
+    return () => window.removeEventListener('add-to-cart', handleAddToCart);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -128,9 +141,14 @@ export function Header() {
              <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors">
                 <Search className="w-5 h-5" />
              </button>
-             <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors relative">
-                <ShoppingBag className="w-5 h-5" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-amber rounded-full border border-white"></span>
+             <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors relative group">
+                <ShoppingBag className={cn("w-5 h-5 transition-transform", isCartAnimating && "scale-125 text-brand-blue")} />
+                {cartCount > 0 && (
+                  <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-brand-blue text-white text-[10px] font-black rounded-full border-2 border-white flex items-center justify-center animate-in zoom-in duration-300">
+                    {cartCount}
+                  </span>
+                )}
+                <span className={cn("absolute top-1.5 right-1.5 w-2 h-2 bg-brand-amber rounded-full border border-white transition-opacity", cartCount > 0 ? "opacity-0" : "opacity-100")}></span>
              </button>
              
              <div className="w-px h-6 bg-brand-gray-light/20 mx-1 hidden sm:block"></div>
