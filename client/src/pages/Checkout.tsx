@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { 
   ChevronRight, ShieldCheck, Truck, Lock, CreditCard, 
   MapPin, Gift, ArrowRight, CheckCircle2, Zap, Package, 
-  Calendar, Shield, Info, CreditCard as CardIcon, Apple, Wallet
+  Calendar, Shield, Info, CreditCard as CardIcon, Apple, Wallet,
+  Smartphone
 } from "lucide-react";
 import laptopImg from "@assets/stock_images/minimalist_silver_la_814f545f.jpg";
 import { motion, AnimatePresence } from "framer-motion";
@@ -159,36 +160,70 @@ export default function Checkout() {
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                           <button 
                             onClick={() => setSelectedPayment("card")}
-                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "card" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                            className={`p-6 rounded-[2.5rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "card" ? 'border-brand-blue bg-brand-blue/5 ring-4 ring-brand-blue/10' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
                           >
-                            <CardIcon className={`w-6 h-6 ${selectedPayment === "card" ? 'text-brand-blue' : 'text-brand-gray'}`} />
-                            <span className={`text-[10px] font-bold ${selectedPayment === "card" ? 'text-brand-black' : 'text-brand-gray'}`}>Card</span>
+                            <CardIcon className={`w-6 h-6 transition-colors ${selectedPayment === "card" ? 'text-brand-blue' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold transition-colors ${selectedPayment === "card" ? 'text-brand-black' : 'text-brand-gray'}`}>Credit Card</span>
                           </button>
                           <button 
                             onClick={() => setSelectedPayment("apple")}
-                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "apple" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "apple" ? 'border-brand-blue bg-brand-blue/5 ring-4 ring-brand-blue/10' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
                           >
-                            <Apple className={`w-6 h-6 ${selectedPayment === "apple" ? 'text-brand-black' : 'text-brand-gray'}`} />
-                            <span className={`text-[10px] font-bold ${selectedPayment === "apple" ? 'text-brand-black' : 'text-brand-gray'}`}>Apple Pay</span>
+                            <Apple className={`w-6 h-6 transition-colors ${selectedPayment === "apple" ? 'text-brand-black' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold transition-colors ${selectedPayment === "apple" ? 'text-brand-black' : 'text-brand-gray'}`}>Apple Pay</span>
                           </button>
                           <button 
                             onClick={() => setSelectedPayment("upi")}
-                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "upi" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "upi" ? 'border-brand-blue bg-brand-blue/5 ring-4 ring-brand-blue/10' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
                           >
-                            <Zap className={`w-6 h-6 ${selectedPayment === "upi" ? 'text-brand-teal' : 'text-brand-gray'}`} />
-                            <span className={`text-[10px] font-bold ${selectedPayment === "upi" ? 'text-brand-black' : 'text-brand-gray'}`}>UPI</span>
+                            <Zap className={`w-6 h-6 transition-colors ${selectedPayment === "upi" ? 'text-brand-teal' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold transition-colors ${selectedPayment === "upi" ? 'text-brand-black' : 'text-brand-gray'}`}>UPI</span>
                           </button>
                           <button 
                             onClick={() => setSelectedPayment("wallet")}
-                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "wallet" ? 'border-brand-blue bg-brand-blue/5' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
+                            className={`p-6 rounded-[2rem] border-2 flex flex-col items-center gap-3 text-center transition-all ${selectedPayment === "wallet" ? 'border-brand-blue bg-brand-blue/5 ring-4 ring-brand-blue/10' : 'border-brand-gray-lighter bg-white hover:border-brand-blue/30'}`}
                           >
-                            <Wallet className={`w-6 h-6 ${selectedPayment === "wallet" ? 'text-brand-amber' : 'text-brand-gray'}`} />
-                            <span className={`text-[10px] font-bold ${selectedPayment === "wallet" ? 'text-brand-black' : 'text-brand-gray'}`}>Wallet</span>
+                            <Wallet className={`w-6 h-6 transition-colors ${selectedPayment === "wallet" ? 'text-brand-amber' : 'text-brand-gray'}`} />
+                            <span className={`text-[10px] font-bold transition-colors ${selectedPayment === "wallet" ? 'text-brand-black' : 'text-brand-gray'}`}>Wallet</span>
                           </button>
                         </div>
 
                         <AnimatePresence mode="wait">
-                          {selectedPayment === "card" ? (
+                          {selectedPayment === "upi" ? (
+                            <motion.div 
+                              key="upi-fields"
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="space-y-8 overflow-hidden"
+                            >
+                              <div className="space-y-4">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Verified UPI ID</label>
+                                <div className="relative">
+                                  <input type="text" placeholder="alex@upi" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-bold text-lg" />
+                                  <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl border border-brand-gray-lighter">
+                                    <ShieldCheck className="w-4 h-4 text-brand-teal" />
+                                    <span className="text-[10px] font-bold text-brand-teal uppercase">Verified</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-2 gap-4">
+                                <button className="p-6 rounded-[2rem] border border-brand-gray-lighter bg-white flex flex-col gap-2 group hover:border-brand-blue transition-all">
+                                  <div className="w-8 h-8 rounded-lg bg-brand-blue/5 flex items-center justify-center text-brand-blue group-hover:scale-110 transition-transform">
+                                    <Smartphone className="w-4 h-4" />
+                                  </div>
+                                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray">Pay via App</p>
+                                </button>
+                                <button className="p-6 rounded-[2rem] border border-brand-gray-lighter bg-white flex flex-col gap-2 group hover:border-brand-blue transition-all">
+                                  <div className="w-8 h-8 rounded-lg bg-brand-teal/5 flex items-center justify-center text-brand-teal group-hover:scale-110 transition-transform">
+                                    <Zap className="w-4 h-4" />
+                                  </div>
+                                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray">QR Scan</p>
+                                </button>
+                              </div>
+                              <p className="text-[10px] text-brand-gray font-bold text-center uppercase tracking-widest opacity-60">Complete payment within 5 minutes</p>
+                            </motion.div>
+                          ) : selectedPayment === "card" ? (
                             <motion.div 
                               key="card-fields"
                               initial={{ opacity: 0, height: 0 }}
@@ -210,20 +245,6 @@ export default function Checkout() {
                                   </div>
                                 </div>
                               </div>
-                            </motion.div>
-                          ) : selectedPayment === "upi" ? (
-                            <motion.div 
-                              key="upi-fields"
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="space-y-6 overflow-hidden"
-                            >
-                              <div className="space-y-3">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">UPI ID</label>
-                                <input type="text" placeholder="alex@upi" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-blue/10 transition-all font-medium" />
-                              </div>
-                              <p className="text-[10px] text-brand-gray font-bold text-center uppercase tracking-widest">A request will be sent to your mobile app</p>
                             </motion.div>
                           ) : (
                             <motion.div 
