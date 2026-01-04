@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const [role, setRole] = useState<"buyer" | "seller">("buyer");
   const [location, setLocation] = useLocation();
 
   const toggleMode = () => setIsLogin(!isLogin);
@@ -36,42 +37,68 @@ export default function AuthPage() {
             <span className="font-display font-bold text-3xl text-white tracking-tighter">RE/USE</span>
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl font-display font-bold text-white leading-[0.95] mb-8 tracking-tighter"
-          >
-            Trade Tech. <br/>
-            <span className="text-brand-gray-light/30">Build Trust.</span>
-          </motion.h1>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
-            {[
-              { icon: ShieldCheck, title: "Escrow Protection", desc: "Funds held securely until delivery is confirmed." },
-              { icon: CheckCircle2, title: "Verified Objects", desc: "Every device undergoes a 50-point quality inspection." },
-            ].map((item, i) => (
-              <div key={i} className="flex gap-4 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                <item.icon className="w-6 h-6 text-brand-teal flex-shrink-0" />
-                <div>
-                  <h4 className="font-bold text-white mb-1">{item.title}</h4>
-                  <p className="text-sm text-brand-gray-light leading-relaxed">{item.desc}</p>
+          <AnimatePresence mode="wait">
+            {role === "buyer" ? (
+              <motion.div
+                key="buyer-content"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+              >
+                <h1 className="text-6xl font-display font-bold text-white leading-[0.95] mb-8 tracking-tighter">
+                  Trade Tech. <br/>
+                  <span className="text-brand-gray-light/30">Buy with Trust.</span>
+                </h1>
+                <div className="space-y-6">
+                  {[
+                    { icon: ShieldCheck, title: "Buyer Protection", desc: "Your money stays in escrow until you verify the device." },
+                    { icon: CheckCircle2, title: "Verified Objects", desc: "Every item is 50-point inspected by our technicians." },
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                      <item.icon className="w-6 h-6 text-brand-teal flex-shrink-0" />
+                      <div>
+                        <h4 className="font-bold text-white mb-1">{item.title}</h4>
+                        <p className="text-sm text-brand-gray-light leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </motion.div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="seller-content"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+              >
+                <h1 className="text-6xl font-display font-bold text-white leading-[0.95] mb-8 tracking-tighter">
+                  Offload Gear. <br/>
+                  <span className="text-brand-gray-light/30">Sell in Seconds.</span>
+                </h1>
+                <div className="space-y-6">
+                  {[
+                    { icon: Zap, title: "Instant Valuation", desc: "Our AI analyzes market data to give you the best price." },
+                    { icon: ArrowRight, title: "Pre-paid Shipping", desc: "We provide the labels, you just drop it off." },
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                      <item.icon className="w-6 h-6 text-brand-amber flex-shrink-0" />
+                      <div>
+                        <h4 className="font-bold text-white mb-1">{item.title}</h4>
+                        <p className="text-sm text-brand-gray-light leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
       {/* Right: Auth Form */}
       <div className="flex-1 flex items-center justify-center p-8 lg:p-20 relative bg-white lg:rounded-l-[4rem] z-20 shadow-[-40px_0_80px_rgba(0,0,0,0.03)]">
         <div className="w-full max-w-md">
-          <div className="mb-12">
+          <div className="mb-8">
             <h2 className="text-4xl font-display font-bold text-brand-black mb-3 tracking-tight">
               {isLogin ? "Welcome Back" : "Create Account"}
             </h2>
@@ -79,6 +106,24 @@ export default function AuthPage() {
               {isLogin ? "Enter your credentials to access your archive." : "Join the elite archive of verified electronics."}
             </p>
           </div>
+
+          {/* Role Selector */}
+          {!isLogin && (
+            <div className="flex p-1 bg-brand-gray-lighter rounded-2xl mb-8">
+              <button 
+                onClick={() => setRole("buyer")}
+                className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${role === "buyer" ? 'bg-white text-brand-black shadow-sm' : 'text-brand-gray hover:text-brand-black'}`}
+              >
+                Buyer
+              </button>
+              <button 
+                onClick={() => setRole("seller")}
+                className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${role === "seller" ? 'bg-white text-brand-black shadow-sm' : 'text-brand-gray hover:text-brand-black'}`}
+              >
+                Seller
+              </button>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <AnimatePresence mode="wait">
