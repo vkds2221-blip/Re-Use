@@ -135,9 +135,11 @@ export function Header() {
              
              <div className="w-px h-6 bg-brand-gray-light/20 mx-1 hidden sm:block"></div>
              
-             <Button className="rounded-full bg-brand-black text-white hover:bg-brand-blue px-6 h-10 hidden sm:flex transition-all">
-               Connect
-             </Button>
+             <a href="/auth">
+               <Button className="rounded-full bg-brand-black text-white hover:bg-brand-blue px-6 h-10 hidden sm:flex transition-all">
+                 Connect
+               </Button>
+             </a>
 
              <button 
                 className="md:hidden p-2.5 rounded-full hover:bg-gray-100 text-gray-600"

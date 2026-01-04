@@ -8,11 +8,13 @@ import Home from "@/pages/Home";
 import ProductDetail from "@/pages/ProductDetail";
 import CategoryPage from "@/pages/Category";
 import Checkout from "@/pages/Checkout";
+import AuthPage from "@/pages/Auth";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/auth" component={AuthPage} />
       <Route path="/category" component={CategoryPage} />
       <Route path="/product" component={ProductDetail} />
       <Route path="/checkout" component={Checkout} />
