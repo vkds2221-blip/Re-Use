@@ -10,6 +10,7 @@ import CategoryPage from "@/pages/Category";
 import Checkout from "@/pages/Checkout";
 import AuthPage from "@/pages/Auth";
 import SellQuote from "@/pages/SellQuote";
+import SellerDashboard from "@/pages/SellerDashboard";
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/product" component={ProductDetail} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/sell/quote" component={SellQuote} />
+      <Route path="/sell/list" component={SellerDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
