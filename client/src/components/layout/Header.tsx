@@ -16,6 +16,16 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [isCartAnimating, setIsCartAnimating] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+    };
+    checkAuth();
+    window.addEventListener('storage', checkAuth);
+    return () => window.removeEventListener('storage', checkAuth);
+  }, []);
 
   useEffect(() => {
     const handleAddToCart = () => {
@@ -153,11 +163,28 @@ export function Header() {
              
              <div className="w-px h-6 bg-brand-gray-light/20 mx-1 hidden sm:block"></div>
              
-             <a href="/auth">
-               <Button className="rounded-full bg-brand-black text-white hover:bg-brand-blue px-6 h-10 hidden sm:flex transition-all">
-                 Connect
-               </Button>
-             </a>
+             {isLoggedIn ? (
+               <div className="flex items-center gap-3 pl-2 pr-1 h-10 rounded-full bg-brand-gray-lighter/50 border border-brand-gray-light/10">
+                 <div className="w-7 h-7 rounded-full bg-brand-blue flex items-center justify-center text-[10px] font-black text-white">
+                   JD
+                 </div>
+                 <button 
+                   onClick={() => {
+                     localStorage.removeItem("isLoggedIn");
+                     window.location.reload();
+                   }}
+                   className="text-[10px] font-black uppercase tracking-widest text-brand-gray hover:text-brand-black transition-colors pr-3"
+                 >
+                   Logout
+                 </button>
+               </div>
+             ) : (
+               <a href="/auth">
+                 <Button className="rounded-full bg-brand-black text-white hover:bg-brand-blue px-6 h-10 hidden sm:flex transition-all font-bold">
+                   Connect
+                 </Button>
+               </a>
+             )}
 
              <button 
                 className="md:hidden p-2.5 rounded-full hover:bg-gray-100 text-gray-600"
