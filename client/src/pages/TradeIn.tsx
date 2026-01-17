@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { 
   RefreshCcw, Smartphone, Laptop, Headphones, Camera, 
   ArrowRight, ShieldCheck, Zap, Info, CheckCircle2,
-  Clock, Package, Smartphone as PhoneIcon
+  Clock, Package, Smartphone as PhoneIcon, Search
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
