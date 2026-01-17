@@ -11,6 +11,7 @@ import Checkout from "@/pages/Checkout";
 import AuthPage from "@/pages/Auth";
 import SellQuote from "@/pages/SellQuote";
 import SellerDashboard from "@/pages/SellerDashboard";
+import TradeIn from "@/pages/TradeIn";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/sell/quote" component={SellQuote} />
       <Route path="/sell/list" component={SellerDashboard} />
+      <Route path="/sell/trade" component={TradeIn} />
       <Route component={NotFound} />
     </Switch>
   );
