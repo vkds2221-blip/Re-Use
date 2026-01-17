@@ -253,7 +253,7 @@ export default function TradeIn() {
 
                       <div className="space-y-4 pt-4">
                         <Button 
-                          onClick={() => window.location.href = "/checkout"}
+                          onClick={() => window.location.href = "/checkout?tradeIn=true"}
                           className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-blue text-lg font-black transition-all group shadow-xl shadow-black/5"
                         >
                           Apply Credit to Checkout
