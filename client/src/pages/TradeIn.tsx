@@ -13,6 +13,9 @@ export default function TradeIn() {
   const [step, setStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [selectedCondition, setSelectedCondition] = useState<string | null>(null);
+  const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
+  const [model, setModel] = useState("");
 
   const categories = [
     { id: 'phones', name: "Smartphones", icon: PhoneIcon, credit: "Up to $800" },
@@ -23,6 +26,7 @@ export default function TradeIn() {
 
   const handleNextStep = () => {
     if (step === 2) {
+      if (!model || !selectedCondition || !selectedStorage) return;
       setIsAnalyzing(true);
       setTimeout(() => {
         setIsAnalyzing(false);
@@ -32,6 +36,8 @@ export default function TradeIn() {
       setStep(prev => prev + 1);
     }
   };
+
+  const isFormValid = model.length > 2 && selectedCondition && selectedStorage;
 
   return (
     <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
@@ -62,7 +68,7 @@ export default function TradeIn() {
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* Left: Trade-in Engine */}
             <div className="lg:col-span-7 space-y-8">
-              <div className="p-10 rounded-[3rem] bg-white border border-brand-gray-lighter shadow-xl relative overflow-hidden min-h-[500px] flex flex-col">
+              <div className="p-10 rounded-[3rem] bg-white border border-brand-gray-lighter shadow-xl relative overflow-hidden min-h-[550px] flex flex-col">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
                 
                 <AnimatePresence mode="wait">
@@ -75,7 +81,7 @@ export default function TradeIn() {
                       className="relative z-10 space-y-8 flex-1"
                     >
                       <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-display font-bold text-brand-black">Select your device</h2>
+                        <h2 className="text-2xl font-display font-bold text-brand-black">Select category</h2>
                         <span className="px-3 py-1 rounded-full bg-brand-gray-lighter text-[10px] font-black text-brand-gray uppercase tracking-widest">Step 1 of 3</span>
                       </div>
 
@@ -99,12 +105,6 @@ export default function TradeIn() {
 
                       {selectedCategory && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                          <div className="p-6 rounded-2xl bg-brand-gray-lighter/50 border border-brand-gray-lighter mb-6 flex items-start gap-4">
-                            <Info className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" />
-                            <p className="text-xs text-brand-gray font-medium leading-relaxed">
-                              Final credit value is determined after a 50-point inspection. We offer a price-match guarantee.
-                            </p>
-                          </div>
                           <Button 
                             onClick={handleNextStep}
                             className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-teal text-lg font-black transition-all group"
@@ -134,15 +134,25 @@ export default function TradeIn() {
 
                       <div className="space-y-6">
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Device Model</label>
-                          <input type="text" placeholder="e.g. iPhone 15 Pro Max" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-teal/10 transition-all font-bold" />
+                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Exact Model</label>
+                          <input 
+                            type="text" 
+                            value={model}
+                            onChange={(e) => setModel(e.target.value)}
+                            placeholder="e.g. iPhone 15 Pro Max, Silver" 
+                            className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-2 border-transparent focus:border-brand-teal/20 focus:bg-white focus:ring-4 focus:ring-brand-teal/5 transition-all font-bold text-brand-black outline-none" 
+                          />
                         </div>
                         
                         <div className="space-y-2">
                           <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Current Condition</label>
                           <div className="grid grid-cols-2 gap-3">
                             {["Like New", "Good", "Fair", "Damaged"].map(cond => (
-                              <button key={cond} className="h-14 rounded-xl border border-brand-gray-lighter font-bold text-sm hover:border-brand-teal hover:bg-brand-teal/5 transition-all">
+                              <button 
+                                key={cond} 
+                                onClick={() => setSelectedCondition(cond)}
+                                className={`h-14 rounded-xl border-2 font-bold text-sm transition-all ${selectedCondition === cond ? 'border-brand-teal bg-brand-teal/5 text-brand-black' : 'border-brand-gray-lighter text-brand-gray hover:border-brand-teal/30'}`}
+                              >
                                 {cond}
                               </button>
                             ))}
@@ -150,10 +160,14 @@ export default function TradeIn() {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Storage</label>
+                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Storage Capacity</label>
                           <div className="grid grid-cols-4 gap-3">
                             {["128GB", "256GB", "512GB", "1TB"].map(storage => (
-                              <button key={storage} className="h-14 rounded-xl border border-brand-gray-lighter font-bold text-sm hover:border-brand-teal hover:bg-brand-teal/5 transition-all">
+                              <button 
+                                key={storage} 
+                                onClick={() => setSelectedStorage(storage)}
+                                className={`h-14 rounded-xl border-2 font-bold text-sm transition-all ${selectedStorage === storage ? 'border-brand-teal bg-brand-teal/5 text-brand-black' : 'border-brand-gray-lighter text-brand-gray hover:border-brand-teal/30'}`}
+                              >
                                 {storage}
                               </button>
                             ))}
@@ -163,17 +177,26 @@ export default function TradeIn() {
 
                       {isAnalyzing ? (
                         <div className="py-8 flex flex-col items-center gap-4">
-                          <motion.div 
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                            className="w-12 h-12 border-4 border-brand-teal/20 border-t-brand-teal rounded-full"
-                          />
-                          <p className="text-sm font-bold text-brand-gray animate-pulse tracking-widest uppercase">Calculating credit value...</p>
+                          <div className="relative">
+                            <motion.div 
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                              className="w-16 h-16 border-4 border-brand-teal/10 border-t-brand-teal rounded-full"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <Zap className="w-6 h-6 text-brand-amber fill-brand-amber animate-pulse" />
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-[10px] font-black text-brand-gray animate-pulse tracking-widest uppercase">Analyzing Hardware Value</p>
+                            <p className="text-xs text-brand-teal font-bold mt-1">Checking market database...</p>
+                          </div>
                         </div>
                       ) : (
                         <Button 
                           onClick={handleNextStep}
-                          className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-teal text-lg font-black transition-all group"
+                          disabled={!isFormValid}
+                          className={`w-full h-16 rounded-full text-lg font-black transition-all group ${isFormValid ? 'bg-brand-black text-white hover:bg-brand-teal' : 'bg-brand-gray-lighter text-brand-gray cursor-not-allowed'}`}
                         >
                           Estimate Trade-in Value
                           <Zap className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform fill-brand-amber text-brand-amber border-none" />
@@ -190,14 +213,42 @@ export default function TradeIn() {
                       className="relative z-10 space-y-8 flex-1 text-center py-4"
                     >
                       <div className="space-y-2">
-                        <div className="w-16 h-16 rounded-full bg-brand-teal/10 flex items-center justify-center mx-auto mb-4 text-brand-teal">
-                          <CheckCircle2 className="w-8 h-8" />
+                        <div className="w-20 h-20 rounded-full bg-brand-teal/10 flex items-center justify-center mx-auto mb-6 text-brand-teal relative">
+                          <CheckCircle2 className="w-10 h-10 relative z-10" />
+                          <motion.div 
+                            initial={{ scale: 0 }}
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="absolute inset-0 bg-brand-teal/5 rounded-full"
+                          />
                         </div>
-                        <p className="text-brand-gray font-black uppercase tracking-[0.2em] text-[10px]">Your Trade-in Credit</p>
-                        <h2 className="text-7xl font-display font-bold text-brand-black tracking-tight">$745.00</h2>
-                        <p className="text-xs text-brand-teal font-bold bg-brand-teal/5 inline-block px-4 py-1.5 rounded-full mt-4">
-                          Guaranteed for 14 Days
-                        </p>
+                        <p className="text-brand-gray font-black uppercase tracking-[0.2em] text-[10px]">Estimated Credit Value</p>
+                        <motion.h2 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-8xl font-display font-bold text-brand-black tracking-tight"
+                        >
+                          $745
+                          <span className="text-3xl text-brand-gray-light">.00</span>
+                        </motion.h2>
+                        <div className="flex items-center justify-center gap-2 mt-4">
+                          <span className="text-xs text-brand-teal font-bold bg-brand-teal/5 px-4 py-1.5 rounded-full border border-brand-teal/10">
+                            Guaranteed for 14 Days
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-8 rounded-[2rem] bg-brand-gray-lighter/30 border-2 border-dashed border-brand-gray-lighter">
+                        <div className="grid grid-cols-2 gap-8">
+                          <div className="text-left">
+                            <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-2">Trade-in ID</p>
+                            <p className="text-lg font-black text-brand-black font-mono">TRD-992-XP0</p>
+                          </div>
+                          <div className="text-left border-l border-brand-gray-lighter pl-8">
+                            <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-2">Device</p>
+                            <p className="text-sm font-bold text-brand-black truncate">{model}</p>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="space-y-4 pt-4">
@@ -205,27 +256,22 @@ export default function TradeIn() {
                           onClick={() => window.location.href = "/checkout"}
                           className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-blue text-lg font-black transition-all group shadow-xl shadow-black/5"
                         >
-                          Use Credit Now
+                          Apply Credit to Checkout
                           <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                         </Button>
                         <Button 
-                          variant="outline"
-                          onClick={() => setStep(1)}
-                          className="w-full h-16 rounded-full border-brand-gray-lighter text-brand-gray hover:bg-brand-gray-lighter font-bold"
+                          variant="ghost"
+                          onClick={() => {
+                            setStep(1);
+                            setSelectedCategory(null);
+                            setSelectedCondition(null);
+                            setSelectedStorage(null);
+                            setModel("");
+                          }}
+                          className="w-full h-16 rounded-full text-brand-gray hover:text-brand-black font-bold"
                         >
                           Trade Another Device
                         </Button>
-                      </div>
-
-                      <div className="pt-6 grid grid-cols-2 gap-4">
-                        <div className="p-4 rounded-2xl bg-brand-gray-lighter/30 border border-brand-gray-lighter text-left">
-                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Coupon Code</p>
-                          <p className="text-sm font-black text-brand-black">TRADE-745-XP9</p>
-                        </div>
-                        <div className="p-4 rounded-2xl bg-brand-gray-lighter/30 border border-brand-gray-lighter text-left">
-                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Status</p>
-                          <p className="text-sm font-black text-brand-teal">READY TO APPLY</p>
-                        </div>
                       </div>
                     </motion.div>
                   )}
