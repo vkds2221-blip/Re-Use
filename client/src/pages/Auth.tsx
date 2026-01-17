@@ -13,8 +13,9 @@ export default function AuthPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In mockup mode, we just redirect to home
-    setLocation("/");
+    // In mockup mode, we simulate login state in localStorage
+    localStorage.setItem("isLoggedIn", "true");
+    setLocation("/sell/list");
   };
 
   return (

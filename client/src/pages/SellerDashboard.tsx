@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
 import { 
   LayoutDashboard, Package, MessageSquare, TrendingUp, 
   DollarSign, ChevronRight, MoreHorizontal, ArrowUpRight,
-  Zap, Clock, CheckCircle2, AlertCircle
+  Zap, Clock, CheckCircle2, AlertCircle, Lock, ArrowRight,
+  ShieldCheck, Sparkles
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "wouter";
 
 export default function SellerDashboard() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [, setLocation] = useLocation();
+
+  // Mock authentication check
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(authStatus);
+  }, []);
+
   const stats = [
     { label: "Active Listings", value: "12", icon: Package, color: "text-brand-blue" },
     { label: "Pending Payout", value: "$4,250", icon: DollarSign, color: "text-brand-teal" },
@@ -21,6 +33,68 @@ export default function SellerDashboard() {
     { id: 2, name: "iPhone 15 Pro - 256GB", price: "$899", status: "Pending Delivery", views: 89, offers: 1 },
     { id: 3, name: "Sony WH-1000XM5", price: "$280", status: "Sold", views: 256, offers: 5 },
   ];
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
+        <Header />
+        <main className="pt-40 pb-20 flex items-center justify-center">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-12 md:p-16 rounded-[3.5rem] bg-brand-black text-white relative overflow-hidden text-center shadow-2xl"
+            >
+              <div className="absolute top-0 right-0 w-80 h-80 bg-brand-blue/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-teal/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2"></div>
+              
+              <div className="relative z-10 space-y-8">
+                <div className="w-20 h-20 rounded-3xl bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-8 backdrop-blur-xl">
+                  <Lock className="w-10 h-10 text-brand-teal" />
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight leading-tight">
+                  Seller Console is <br/>
+                  <span className="text-brand-gray-light/40">Restricted Access.</span>
+                </h2>
+                
+                <p className="text-brand-gray-light text-lg font-medium max-w-md mx-auto">
+                  Sign in to your professional archive to manage listings, track payouts, and view market analytics.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-4 pt-4">
+                  <Button 
+                    onClick={() => setLocation("/auth")}
+                    className="h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group"
+                  >
+                    Sign In Now
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button 
+                    onClick={() => setLocation("/auth")}
+                    variant="outline" 
+                    className="h-16 rounded-full border-white/20 text-white hover:bg-white/10 text-lg font-bold"
+                  >
+                    Create Account
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-center gap-6 pt-8 border-t border-white/5">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-brand-gray uppercase tracking-widest">
+                    <ShieldCheck className="w-3.5 h-3.5 text-brand-teal" /> Protected Area
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-brand-gray uppercase tracking-widest">
+                    <Sparkles className="w-3.5 h-3.5 text-brand-amber" /> Seller Perks
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
