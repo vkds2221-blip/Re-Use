@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function TradeIn() {
   const [step, setStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const categories = [
     { id: 'phones', name: "Smartphones", icon: PhoneIcon, credit: "Up to $800" },
@@ -19,6 +20,18 @@ export default function TradeIn() {
     { id: 'audio', name: "Audio", icon: Headphones, credit: "Up to $300" },
     { id: 'cameras', name: "Cameras", icon: Camera, credit: "Up to $1500" },
   ];
+
+  const handleNextStep = () => {
+    if (step === 2) {
+      setIsAnalyzing(true);
+      setTimeout(() => {
+        setIsAnalyzing(false);
+        setStep(3);
+      }, 2500);
+    } else {
+      setStep(prev => prev + 1);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#FBFBFC] font-sans selection:bg-brand-blue selection:text-white">
@@ -49,48 +62,174 @@ export default function TradeIn() {
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* Left: Trade-in Engine */}
             <div className="lg:col-span-7 space-y-8">
-              <div className="p-10 rounded-[3rem] bg-white border border-brand-gray-lighter shadow-xl relative overflow-hidden">
+              <div className="p-10 rounded-[3rem] bg-white border border-brand-gray-lighter shadow-xl relative overflow-hidden min-h-[500px] flex flex-col">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-teal/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
                 
-                <div className="relative z-10 space-y-8">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-display font-bold text-brand-black">Select your device</h2>
-                    <span className="px-3 py-1 rounded-full bg-brand-gray-lighter text-[10px] font-black text-brand-gray uppercase tracking-widest">Step 1 of 3</span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    {categories.map((cat) => (
-                      <button
-                        key={cat.id}
-                        onClick={() => setSelectedCategory(cat.id)}
-                        className={`p-8 rounded-[2rem] border-2 flex flex-col items-start gap-4 transition-all text-left group ${selectedCategory === cat.id ? 'border-brand-teal bg-brand-teal/5 ring-4 ring-brand-teal/10' : 'border-brand-gray-lighter bg-white hover:border-brand-teal/30'}`}
-                      >
-                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${selectedCategory === cat.id ? 'bg-brand-teal text-white' : 'bg-brand-gray-lighter text-brand-gray group-hover:bg-brand-teal/10 group-hover:text-brand-teal'}`}>
-                          <cat.icon className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-brand-black">{cat.name}</p>
-                          <p className="text-[10px] font-black text-brand-teal uppercase tracking-widest mt-1">{cat.credit}</p>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  {selectedCategory && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                      <div className="p-6 rounded-2xl bg-brand-gray-lighter/50 border border-brand-gray-lighter mb-6 flex items-start gap-4">
-                        <Info className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" />
-                        <p className="text-xs text-brand-gray font-medium leading-relaxed">
-                          Final credit value is determined after a 50-point inspection. We offer a price-match guarantee on all trade-in valuations.
-                        </p>
+                <AnimatePresence mode="wait">
+                  {step === 1 && (
+                    <motion.div 
+                      key="step1"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      className="relative z-10 space-y-8 flex-1"
+                    >
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-2xl font-display font-bold text-brand-black">Select your device</h2>
+                        <span className="px-3 py-1 rounded-full bg-brand-gray-lighter text-[10px] font-black text-brand-gray uppercase tracking-widest">Step 1 of 3</span>
                       </div>
-                      <Button className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-teal text-lg font-black transition-all group">
-                        Find your model
-                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        {categories.map((cat) => (
+                          <button
+                            key={cat.id}
+                            onClick={() => setSelectedCategory(cat.id)}
+                            className={`p-8 rounded-[2rem] border-2 flex flex-col items-start gap-4 transition-all text-left group ${selectedCategory === cat.id ? 'border-brand-teal bg-brand-teal/5 ring-4 ring-brand-teal/10' : 'border-brand-gray-lighter bg-white hover:border-brand-teal/30'}`}
+                          >
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${selectedCategory === cat.id ? 'bg-brand-teal text-white' : 'bg-brand-gray-lighter text-brand-gray group-hover:bg-brand-teal/10 group-hover:text-brand-teal'}`}>
+                              <cat.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <p className="font-bold text-brand-black">{cat.name}</p>
+                              <p className="text-[10px] font-black text-brand-teal uppercase tracking-widest mt-1">{cat.credit}</p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+
+                      {selectedCategory && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                          <div className="p-6 rounded-2xl bg-brand-gray-lighter/50 border border-brand-gray-lighter mb-6 flex items-start gap-4">
+                            <Info className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" />
+                            <p className="text-xs text-brand-gray font-medium leading-relaxed">
+                              Final credit value is determined after a 50-point inspection. We offer a price-match guarantee.
+                            </p>
+                          </div>
+                          <Button 
+                            onClick={handleNextStep}
+                            className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-teal text-lg font-black transition-all group"
+                          >
+                            Find your model
+                            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                          </Button>
+                        </motion.div>
+                      )}
                     </motion.div>
                   )}
-                </div>
+
+                  {step === 2 && (
+                    <motion.div 
+                      key="step2"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      className="relative z-10 space-y-8 flex-1"
+                    >
+                      <div className="flex items-center justify-between">
+                        <button onClick={() => setStep(1)} className="text-xs font-bold text-brand-gray hover:text-brand-black flex items-center gap-2 transition-colors">
+                          <ArrowRight className="w-4 h-4 rotate-180" /> Back
+                        </button>
+                        <span className="px-3 py-1 rounded-full bg-brand-gray-lighter text-[10px] font-black text-brand-gray uppercase tracking-widest">Step 2 of 3</span>
+                      </div>
+
+                      <div className="space-y-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Device Model</label>
+                          <input type="text" placeholder="e.g. iPhone 15 Pro Max" className="w-full h-16 px-6 rounded-[1.5rem] bg-brand-gray-lighter border-none focus:ring-4 focus:ring-brand-teal/10 transition-all font-bold" />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Current Condition</label>
+                          <div className="grid grid-cols-2 gap-3">
+                            {["Like New", "Good", "Fair", "Damaged"].map(cond => (
+                              <button key={cond} className="h-14 rounded-xl border border-brand-gray-lighter font-bold text-sm hover:border-brand-teal hover:bg-brand-teal/5 transition-all">
+                                {cond}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-gray ml-2">Storage</label>
+                          <div className="grid grid-cols-4 gap-3">
+                            {["128GB", "256GB", "512GB", "1TB"].map(storage => (
+                              <button key={storage} className="h-14 rounded-xl border border-brand-gray-lighter font-bold text-sm hover:border-brand-teal hover:bg-brand-teal/5 transition-all">
+                                {storage}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {isAnalyzing ? (
+                        <div className="py-8 flex flex-col items-center gap-4">
+                          <motion.div 
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                            className="w-12 h-12 border-4 border-brand-teal/20 border-t-brand-teal rounded-full"
+                          />
+                          <p className="text-sm font-bold text-brand-gray animate-pulse tracking-widest uppercase">Calculating credit value...</p>
+                        </div>
+                      ) : (
+                        <Button 
+                          onClick={handleNextStep}
+                          className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-teal text-lg font-black transition-all group"
+                        >
+                          Estimate Trade-in Value
+                          <Zap className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform fill-brand-amber text-brand-amber border-none" />
+                        </Button>
+                      )}
+                    </motion.div>
+                  )}
+
+                  {step === 3 && (
+                    <motion.div 
+                      key="step3"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="relative z-10 space-y-8 flex-1 text-center py-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="w-16 h-16 rounded-full bg-brand-teal/10 flex items-center justify-center mx-auto mb-4 text-brand-teal">
+                          <CheckCircle2 className="w-8 h-8" />
+                        </div>
+                        <p className="text-brand-gray font-black uppercase tracking-[0.2em] text-[10px]">Your Trade-in Credit</p>
+                        <h2 className="text-7xl font-display font-bold text-brand-black tracking-tight">$745.00</h2>
+                        <p className="text-xs text-brand-teal font-bold bg-brand-teal/5 inline-block px-4 py-1.5 rounded-full mt-4">
+                          Guaranteed for 14 Days
+                        </p>
+                      </div>
+
+                      <div className="space-y-4 pt-4">
+                        <Button 
+                          onClick={() => window.location.href = "/checkout"}
+                          className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-blue text-lg font-black transition-all group shadow-xl shadow-black/5"
+                        >
+                          Use Credit Now
+                          <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                        <Button 
+                          variant="outline"
+                          onClick={() => setStep(1)}
+                          className="w-full h-16 rounded-full border-brand-gray-lighter text-brand-gray hover:bg-brand-gray-lighter font-bold"
+                        >
+                          Trade Another Device
+                        </Button>
+                      </div>
+
+                      <div className="pt-6 grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-2xl bg-brand-gray-lighter/30 border border-brand-gray-lighter text-left">
+                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Coupon Code</p>
+                          <p className="text-sm font-black text-brand-black">TRADE-745-XP9</p>
+                        </div>
+                        <div className="p-4 rounded-2xl bg-brand-gray-lighter/30 border border-brand-gray-lighter text-left">
+                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Status</p>
+                          <p className="text-sm font-black text-brand-teal">READY TO APPLY</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Benefits Bento */}
