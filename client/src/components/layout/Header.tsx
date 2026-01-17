@@ -1,4 +1,4 @@
-import { Search, ShoppingBag, Menu, X, User, Zap, ChevronDown, Laptop, Smartphone, Headphones, Camera, Sparkles, TrendingUp, ShieldCheck } from "lucide-react";
+import { Search, ShoppingBag, Menu, X, User, Zap, ChevronDown, Laptop, Smartphone, Headphones, Camera, Sparkles, TrendingUp, ShieldCheck, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -45,7 +45,7 @@ export function Header() {
 
   const sellItems = [
     { title: "Instant Quote", icon: Sparkles, desc: "AI-powered valuation", href: "/sell/quote" },
-    { title: "Marketplace", icon: TrendingUp, desc: "List it yourself", href: "/sell/list" },
+    { title: "Seller Dashboard", icon: LayoutDashboard, desc: "Manage your listings", href: "/sell/list" },
     { title: "Trade-in", icon: ShieldCheck, desc: "Credit for next device", href: "/sell/trade" },
   ];
 
