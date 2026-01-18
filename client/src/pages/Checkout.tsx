@@ -6,7 +6,7 @@ import {
   ShieldCheck, Truck, Lock, CreditCard, 
   MapPin, ArrowRight, CheckCircle2, Zap, Package, 
   Shield, CreditCard as CardIcon, Apple, Wallet,
-  Smartphone
+  Smartphone, Download, FileText, Box, Clock
 } from "lucide-react";
 import laptopImg from "@assets/stock_images/minimalist_silver_la_814f545f.jpg";
 import { motion, AnimatePresence } from "framer-motion";
@@ -82,7 +82,7 @@ export default function Checkout() {
                       key="success"
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="p-16 rounded-[4rem] bg-white border border-brand-teal shadow-2xl shadow-brand-teal/5 text-center space-y-8"
+                      className="p-10 md:p-16 rounded-[4rem] bg-white border border-brand-teal shadow-2xl shadow-brand-teal/5 text-center space-y-8"
                     >
                       <div className="w-24 h-24 rounded-full bg-brand-teal/10 flex items-center justify-center mx-auto text-brand-teal relative">
                         <CheckCircle2 className="w-12 h-12 relative z-10" />
@@ -92,25 +92,71 @@ export default function Checkout() {
                           className="absolute inset-0 bg-brand-teal/20 rounded-full"
                         />
                       </div>
+                      
                       <div className="space-y-4">
                         <h2 className="text-4xl font-display font-bold text-brand-black">Order Confirmed!</h2>
                         <p className="text-brand-gray font-medium max-w-md mx-auto">
-                          Your MacBook Pro is being prepared for shipment. You'll receive a tracking number via email within 24 hours.
+                          Your MacBook Pro is being prepared. Follow your delivery in real-time below.
                         </p>
                       </div>
-                      <div className="p-8 rounded-[2rem] bg-brand-gray-lighter/30 border border-brand-gray-lighter grid grid-cols-2 gap-8 text-left">
-                        <div>
-                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Order Number</p>
-                          <p className="font-bold text-brand-black">#EM-29930-X</p>
+
+                      {/* Tracking Timeline */}
+                      <div className="p-8 rounded-[2.5rem] bg-brand-gray-lighter/30 border border-brand-gray-lighter text-left">
+                        <div className="flex items-center justify-between mb-8">
+                          <h4 className="text-sm font-black uppercase tracking-widest text-brand-black flex items-center gap-2">
+                            <Box className="w-4 h-4 text-brand-blue" />
+                            Live Tracking
+                          </h4>
+                          <span className="text-[10px] font-black bg-brand-teal/10 text-brand-teal px-3 py-1 rounded-full uppercase">Processing</span>
                         </div>
-                        <div>
-                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Total Paid</p>
-                          <p className="font-bold text-brand-teal">${finalTotal}</p>
+                        
+                        <div className="space-y-6 relative">
+                          <div className="absolute left-2.5 top-2 bottom-2 w-0.5 bg-brand-gray-lighter"></div>
+                          
+                          {[
+                            { status: "Order Placed", time: "Just now", icon: CheckCircle2, done: true },
+                            { status: "Quality Inspection", time: "Scheduled for 2:00 PM", icon: ShieldCheck, done: false },
+                            { status: "Out for Delivery", time: "Estimated Tomorrow", icon: Truck, done: false },
+                          ].map((item, i) => (
+                            <div key={i} className="flex gap-6 relative z-10">
+                              <div className={`w-5 h-5 rounded-full flex items-center justify-center ${item.done ? 'bg-brand-teal text-white' : 'bg-white border-2 border-brand-gray-lighter text-brand-gray'}`}>
+                                <item.icon className="w-3 h-3" />
+                              </div>
+                              <div>
+                                <p className={`text-xs font-bold ${item.done ? 'text-brand-black' : 'text-brand-gray'}`}>{item.status}</p>
+                                <p className="text-[10px] text-brand-gray-light font-medium">{item.time}</p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                      <Button onClick={() => window.location.href = "/"} className="w-full h-16 rounded-full bg-brand-black text-white hover:bg-brand-blue font-bold">
-                        Return to Market
-                      </Button>
+
+                      {/* Invoice Section */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-6 rounded-[2rem] bg-white border border-brand-gray-lighter text-left group hover:border-brand-blue transition-all cursor-pointer">
+                          <div className="flex items-center justify-between mb-4">
+                            <FileText className="w-6 h-6 text-brand-blue" />
+                            <Download className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors" />
+                          </div>
+                          <p className="text-[10px] font-black text-brand-gray uppercase tracking-widest mb-1">Invoice #EM-992</p>
+                          <p className="text-xs font-bold text-brand-black">Download PDF Receipt</p>
+                        </div>
+                        
+                        <div className="p-6 rounded-[2rem] bg-brand-black text-white text-left group hover:bg-brand-blue transition-all cursor-pointer">
+                          <div className="flex items-center justify-between mb-4">
+                            <Clock className="w-6 h-6 text-brand-teal" />
+                            <ArrowRight className="w-4 h-4 text-white/50 group-hover:translate-x-1 transition-all" />
+                          </div>
+                          <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Warranty Card</p>
+                          <p className="text-xs font-bold text-white">View 12-Month Coverage</p>
+                        </div>
+                      </div>
+
+                      <div className="pt-4">
+                        <Button onClick={() => window.location.href = "/"} variant="ghost" className="text-brand-gray hover:text-brand-black font-bold">
+                          Return to Market
+                        </Button>
+                      </div>
                     </motion.div>
                   ) : (
                     <div className="space-y-6">
