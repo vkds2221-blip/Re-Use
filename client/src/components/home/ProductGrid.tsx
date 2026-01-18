@@ -55,98 +55,103 @@ export function ProductGrid() {
   const [activeCategory, setActiveCategory] = useState("Smartphones");
 
   return (
-    <section className="py-24 bg-[#FCFCFD] overflow-hidden relative">
+    <section className="py-32 bg-[#F6F6F7] overflow-hidden relative">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="flex flex-col lg:flex-row gap-16 items-start">
           
-          {/* Refined Sidebar - Sticky & Minimal */}
-          <div className="w-full lg:w-72 lg:sticky lg:top-32 space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-brand-gray-light mb-6 px-4">Categories</h3>
+          {/* Refined Sidebar - Ultra Minimal */}
+          <div className="w-full lg:w-64 lg:sticky lg:top-32 space-y-2">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-gray-light mb-8 px-2">Collections</h3>
             {sideCategories.map((cat) => (
               <button
                 key={cat.name}
                 onClick={() => setActiveCategory(cat.name)}
-                className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
+                className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all duration-500 group ${
                   activeCategory === cat.name 
-                    ? "bg-white shadow-xl shadow-black/[0.03] border border-brand-gray-lighter" 
-                    : "hover:bg-brand-gray-lighter/50"
+                    ? "bg-brand-black text-white shadow-2xl shadow-black/10" 
+                    : "hover:bg-white/50 text-brand-gray hover:text-brand-black"
                 }`}
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                    activeCategory === cat.name ? "bg-brand-blue text-white" : "bg-brand-gray-lighter text-brand-gray"
-                  }`}>
-                    <cat.icon className="w-5 h-5" />
-                  </div>
-                  <span className={`font-bold text-sm ${activeCategory === cat.name ? "text-brand-black" : "text-brand-gray"}`}>
-                    {cat.name}
-                  </span>
+                  <cat.icon className={`w-5 h-5 transition-transform duration-500 ${activeCategory === cat.name ? "scale-110" : "group-hover:scale-110"}`} />
+                  <span className="font-bold text-sm tracking-tight">{cat.name}</span>
                 </div>
-                <span className="text-[10px] font-bold text-brand-gray-light bg-brand-gray-lighter px-2 py-1 rounded-md">
+                <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${activeCategory === cat.name ? "bg-white/10 text-white/60" : "bg-brand-gray-lighter text-brand-gray-light"}`}>
                   {cat.count.split(' ')[0]}
                 </span>
               </button>
             ))}
           </div>
 
-          {/* Product Grid - Elevated Presentation */}
+          {/* Product Grid - The "Perfect" Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
               {products.map((product) => (
                 <motion.div
                   layout
                   key={product.id}
-                  className="group relative flex flex-col"
+                  className="group relative"
                 >
-                  {/* Product Stage */}
-                  <div className="relative aspect-[4/5] rounded-[2.5rem] bg-white border border-brand-gray-lighter overflow-hidden transition-all duration-500 group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] group-hover:-translate-y-2">
-                    <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-20">
-                      <div className="bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-black/[0.03] shadow-sm flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-brand-teal animate-pulse" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-brand-black">{product.tag}</span>
-                      </div>
-                      <button className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-black/[0.03] flex items-center justify-center text-brand-gray hover:text-red-500 transition-colors">
-                        <Heart className="w-4 h-4" />
-                      </button>
-                    </div>
-
-                    <img 
-                      src={product.image} 
-                      alt={product.name} 
-                      className="w-full h-full object-contain p-12 mix-blend-multiply transition-transform duration-700 group-hover:scale-110" 
-                    />
-
-                    {/* Quick Add Overlay */}
-                    <div className="absolute inset-x-6 bottom-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-20">
-                      <div className="bg-white/90 backdrop-blur-xl p-3 rounded-2xl border border-white/50 shadow-2xl flex gap-2">
-                        <Button 
-                          onClick={() => window.location.href = '/product'}
-                          className="flex-1 h-12 rounded-xl bg-brand-black text-white hover:bg-brand-blue font-bold text-xs uppercase tracking-widest transition-all"
-                        >
-                          Quick View
-                        </Button>
-                        <button className="w-12 h-12 rounded-xl bg-brand-blue text-white flex items-center justify-center hover:bg-brand-black transition-colors">
-                          <ShoppingBag className="w-5 h-5" />
+                  {/* Product Card Stage */}
+                  <div className="relative aspect-[4/5] rounded-[3rem] bg-white overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] group-hover:-translate-y-3">
+                    
+                    {/* Floating Info Overlays */}
+                    <div className="absolute inset-0 p-8 flex flex-col justify-between z-20">
+                      <div className="flex justify-between items-start">
+                        <div className="flex flex-col gap-2">
+                          <div className="bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-black/[0.03] shadow-sm flex items-center gap-2 w-fit">
+                            <div className="w-1.5 h-1.5 rounded-full bg-brand-teal" />
+                            <span className="text-[9px] font-black uppercase tracking-widest text-brand-black">{product.tag}</span>
+                          </div>
+                          {/* Seller Quick Info */}
+                          <div className="bg-brand-black/95 backdrop-blur-md pl-1.5 pr-4 py-1.5 rounded-full flex items-center gap-2 w-fit transform -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                            <img src={product.sellerImg} className="w-5 h-5 rounded-full border border-white/20" alt="" />
+                            <span className="text-[8px] font-bold text-white uppercase tracking-widest">{product.seller}</span>
+                          </div>
+                        </div>
+                        <button className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border border-black/[0.03] flex items-center justify-center text-brand-gray hover:text-red-500 hover:bg-white transition-all shadow-sm transform group-hover:scale-110">
+                          <Heart className="w-5 h-5" />
                         </button>
                       </div>
+
+                      {/* Buy Action Bar */}
+                      <div className="translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                        <div className="flex gap-2">
+                          <Button 
+                            onClick={() => window.location.href = '/product'}
+                            className="flex-1 h-14 rounded-2xl bg-brand-black text-white hover:bg-brand-blue font-black text-[10px] uppercase tracking-[0.2em] transition-all shadow-xl"
+                          >
+                            Buy Now
+                          </Button>
+                          <button className="w-14 h-14 rounded-2xl bg-brand-blue text-white flex items-center justify-center hover:bg-brand-black transition-colors shadow-lg">
+                            <ShoppingBag className="w-6 h-6" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Product Image */}
+                    <div className="absolute inset-0 p-12 flex items-center justify-center">
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="w-full h-full object-contain mix-blend-multiply transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" 
+                      />
+                    </div>
+                    
+                    {/* Subtle Gradient Shadow */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   </div>
 
                   {/* Product Metadata */}
-                  <div className="pt-6 px-2 space-y-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-lg font-bold text-brand-black leading-tight group-hover:text-brand-blue transition-colors">{product.name}</h3>
-                        <p className="text-xs text-brand-gray-light font-medium">{product.desc}</p>
-                      </div>
-                      <p className="text-lg font-display font-bold text-brand-black">₹{product.price}</p>
+                  <div className="pt-8 px-4 flex justify-between items-end">
+                    <div className="space-y-1">
+                      <h3 className="text-2xl font-display font-bold text-brand-black tracking-tight group-hover:text-brand-blue transition-colors">{product.name}</h3>
+                      <p className="text-[11px] text-brand-gray font-bold uppercase tracking-widest opacity-40">{product.desc.split('|')[0]}</p>
                     </div>
-                    
-                    <div className="flex items-center gap-2 pt-2 border-t border-brand-gray-lighter">
-                      <div className="w-5 h-5 rounded-full overflow-hidden border border-brand-gray-lighter">
-                        <img src={product.sellerImg} alt="" className="w-full h-full object-cover" />
-                      </div>
-                      <span className="text-[10px] font-bold text-brand-gray uppercase tracking-widest">Seller: {product.seller}</span>
+                    <div className="text-right">
+                      <p className="text-[9px] font-black text-brand-gray-light uppercase tracking-widest mb-0.5">Price</p>
+                      <p className="text-3xl font-display font-bold text-brand-black tracking-tighter">₹{product.price}</p>
                     </div>
                   </div>
                 </motion.div>
