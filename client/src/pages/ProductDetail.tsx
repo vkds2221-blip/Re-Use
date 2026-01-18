@@ -228,17 +228,28 @@ export default function ProductDetail() {
                        </div>
                        
                        <div className="grid gap-3">
-                          <Button 
-                            onClick={() => {
-                              window.dispatchEvent(new CustomEvent('add-to-cart', { 
-                                detail: { ...product, id: 'macbook-m3-max' } 
-                              }));
-                            }}
-                            className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-brand-blue hover:text-white text-lg font-black transition-all group/btn shadow-xl shadow-white/5"
-                          >
-                             Add to Bag
-                             <ShoppingBag className="w-5 h-5 ml-2 group-hover/btn:scale-110 transition-transform" />
-                          </Button>
+                          <div className="grid grid-cols-2 gap-3">
+                            <Button 
+                              onClick={() => {
+                                window.dispatchEvent(new CustomEvent('add-to-cart', { 
+                                  detail: { ...product, id: 'macbook-m3-max' } 
+                                }));
+                              }}
+                              className="w-full h-16 rounded-full bg-white text-brand-black hover:bg-white/90 text-sm font-black transition-all group/btn shadow-xl shadow-white/5"
+                            >
+                               Add to Bag
+                               <ShoppingBag className="w-4 h-4 ml-2 group-hover/btn:scale-110 transition-transform" />
+                            </Button>
+                            <Button 
+                              onClick={() => {
+                                window.location.href = "/checkout";
+                              }}
+                              className="w-full h-16 rounded-full bg-brand-blue text-white hover:bg-brand-blue/90 text-sm font-black transition-all group/buy shadow-xl shadow-brand-blue/20"
+                            >
+                               Buy Now
+                               <ArrowRight className="w-4 h-4 ml-2 group-hover/buy:translate-x-1 transition-transform" />
+                            </Button>
+                          </div>
                           <Button 
                             onClick={() => setShowChat(true)}
                             variant="outline" 
