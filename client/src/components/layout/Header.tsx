@@ -2,6 +2,7 @@ import { Search, ShoppingBag, Menu, X, User, Zap, ChevronDown, Laptop, Smartphon
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,8 +15,12 @@ import {
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [cartCount, setCartCount] = useState(0);
   const [isCartAnimating, setIsCartAnimating] = useState(false);
+  const [cartItems, setCartItems] = useState<{name: string, price: number}[]>([]);
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -28,7 +33,9 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const handleAddToCart = () => {
+    const handleAddToCart = (e: any) => {
+      const newItem = e.detail;
+      setCartItems(prev => [...prev, newItem]);
       setCartCount(prev => prev + 1);
       setIsCartAnimating(true);
       setTimeout(() => setIsCartAnimating(false), 1000);
@@ -147,19 +154,77 @@ export function Header() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-2 pr-1">
-             <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors">
+          <div className="flex items-center gap-2 pr-1 relative">
+             <div className={cn(
+               "flex items-center gap-2 transition-all duration-500 overflow-hidden",
+               isSearchOpen ? "w-64 opacity-100" : "w-0 opacity-0"
+             )}>
+               <input 
+                 type="text" 
+                 placeholder="Search electronics..."
+                 value={searchQuery}
+                 onChange={(e) => setSearchQuery(e.target.value)}
+                 className="w-full h-10 px-4 rounded-full bg-brand-gray-lighter border-none focus:ring-2 focus:ring-brand-blue/20 text-sm font-medium"
+               />
+             </div>
+             
+             <button 
+               onClick={() => setIsSearchOpen(!isSearchOpen)}
+               className={cn("p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors", isSearchOpen && "bg-brand-gray-lighter text-brand-blue")}
+             >
                 <Search className="w-5 h-5" />
              </button>
-             <button className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors relative group">
-                <ShoppingBag className={cn("w-5 h-5 transition-transform", isCartAnimating && "scale-125 text-brand-blue")} />
-                {cartCount > 0 && (
-                  <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-brand-blue text-white text-[10px] font-black rounded-full border-2 border-white flex items-center justify-center animate-in zoom-in duration-300">
-                    {cartCount}
-                  </span>
-                )}
-                <span className={cn("absolute top-1.5 right-1.5 w-2 h-2 bg-brand-amber rounded-full border border-white transition-opacity", cartCount > 0 ? "opacity-0" : "opacity-100")}></span>
-             </button>
+
+             <div className="relative">
+               <button 
+                 onMouseEnter={() => setShowCartDropdown(true)}
+                 onClick={() => window.location.href = '/checkout'}
+                 className="p-2.5 rounded-full hover:bg-brand-gray-lighter text-brand-gray transition-colors relative group"
+               >
+                  <ShoppingBag className={cn("w-5 h-5 transition-transform", isCartAnimating && "scale-125 text-brand-blue")} />
+                  {cartCount > 0 && (
+                    <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-brand-blue text-white text-[10px] font-black rounded-full border-2 border-white flex items-center justify-center animate-in zoom-in duration-300">
+                      {cartCount}
+                    </span>
+                  )}
+                  {!cartCount && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-amber rounded-full border border-white transition-opacity opacity-100"></span>}
+               </button>
+
+               {/* Mini Cart Dropdown */}
+               <AnimatePresence>
+                 {showCartDropdown && cartItems.length > 0 && (
+                   <motion.div 
+                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                     animate={{ opacity: 1, y: 0, scale: 1 }}
+                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                     onMouseLeave={() => setShowCartDropdown(false)}
+                     className="absolute top-full right-0 mt-2 w-72 bg-white rounded-[2rem] shadow-2xl border border-black/5 p-4 z-[100]"
+                   >
+                     <div className="space-y-3 mb-4 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                       {cartItems.map((item, i) => (
+                         <div key={i} className="flex items-center justify-between p-2 rounded-xl hover:bg-brand-gray-lighter transition-colors">
+                           <div className="flex items-center gap-3">
+                             <div className="w-10 h-10 rounded-lg bg-brand-gray-lighter flex items-center justify-center">
+                               <Laptop className="w-5 h-5 text-brand-gray" />
+                             </div>
+                             <div>
+                               <p className="text-xs font-bold text-brand-black truncate w-32">{item.name}</p>
+                               <p className="text-[10px] text-brand-blue font-bold">${item.price}</p>
+                             </div>
+                           </div>
+                         </div>
+                       ))}
+                     </div>
+                     <Button 
+                       onClick={() => window.location.href = '/checkout'}
+                       className="w-full h-12 rounded-full bg-brand-black text-white hover:bg-brand-blue font-bold text-xs"
+                     >
+                       Checkout Now
+                     </Button>
+                   </motion.div>
+                 )}
+               </AnimatePresence>
+             </div>
              
              <div className="w-px h-6 bg-brand-gray-light/20 mx-1 hidden sm:block"></div>
              
