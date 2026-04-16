@@ -12,6 +12,8 @@ import AuthPage from "@/pages/Auth";
 import SellQuote from "@/pages/SellQuote";
 import SellerDashboard from "@/pages/SellerDashboard";
 import TradeIn from "@/pages/TradeIn";
+import About from "@/pages/about";
+import Support from "@/pages/support";
 
 function Router() {
   return (
