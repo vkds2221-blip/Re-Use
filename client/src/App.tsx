@@ -27,6 +27,8 @@ function Router() {
       <Route path="/sell/list" component={SellerDashboard} />
       <Route path="/sell/trade" component={TradeIn} />
       <Route component={NotFound} />
+      <Route path="/about" component={About} />
+      <Route path="/support" component={Support} />
     </Switch>
   );
 }
